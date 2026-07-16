@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090912" />
+  <link rel="icon" href="logo.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="logo.jpg" />
+  <meta name="description" content="Polityka prywatności serwisu Rozkmin Matmę — korepetycje z matematyki online." />
+  <title>Polityka prywatności — Rozkmin Matmę</title>
+  <style>
+    :root {
+      --bg: #070710;
+      --bg-soft: #0d0c18;
+      --line: rgba(142, 120, 255, .22);
+      --text: #f8f7ff;
+      --muted: #b9b6cd;
+      --muted-2: #8f8ba5;
+      --purple: #8a6cff;
+      --cyan: #43d7ff;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .42);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(111, 76, 255, .20), transparent 36%),
+        radial-gradient(circle at 90% 20%, rgba(54, 129, 255, .13), transparent 28%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(var(--max), calc(100% - 36px)); margin-inline: auto; }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(7, 7, 16, .78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.025em; font-size: 1.13rem; }
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 0 28px rgba(84, 119, 255, .28);
+    }
+    .brand small { display: block; color: var(--muted-2); font-size: .69rem; font-weight: 600; margin-top: -2px; }
+    .nav-links { display: flex; align-items: center; gap: 26px; color: #d9d6e7; font-size: .92rem; }
+    .nav-links a:hover { color: white; }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      min-height: 52px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(120deg, #7657ff, #4b8dff 65%, #43d7ff);
+      color: white;
+      box-shadow: 0 14px 34px rgba(74, 80, 210, .27);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-small { min-height: 44px; padding: 0 16px; font-size: .88rem; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 800;
+      font-size: .76rem;
+      color: #9d8cff;
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+    }
+
+    .legal-page { padding: 56px 0 100px; }
+    .legal-shell {
+      border: 1px solid rgba(137,108,255,.27);
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(23,21,42,.96), rgba(10,10,19,.96));
+      box-shadow: var(--shadow);
+      padding: 42px 48px;
+    }
+    .legal-head h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; letter-spacing: -.035em; margin: 0; }
+    .legal-head p { margin-top: 14px; max-width: 720px; color: var(--muted); }
+    .legal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+      margin-bottom: 32px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .legal-pill {
+      padding: 7px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(137,108,255,.28);
+      background: rgba(255,255,255,.03);
+      color: #d7d4e4;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .legal-note {
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(137,108,255,.24);
+      background: rgba(113,81,255,.08);
+      color: #d9d7e6;
+      font-size: .9rem;
+      margin-bottom: 32px;
+    }
+    .legal-toc {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 36px;
+      padding: 22px 24px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+    }
+    .legal-toc strong { display: block; margin-bottom: 10px; color: #e9e7f2; font-size: .92rem; }
+    .legal-toc a { color: #ad9cff; font-size: .88rem; font-weight: 600; }
+    .legal-toc a:hover { color: white; }
+    .legal-section { scroll-margin-top: 96px; }
+    .legal-section + .legal-section { margin-top: 36px; padding-top: 36px; border-top: 1px solid rgba(255,255,255,.06); }
+    .legal-section h2 { margin: 0 0 14px; font-size: 1.35rem; letter-spacing: -.02em; }
+    .legal-section p, .legal-section li { color: var(--muted); font-size: .94rem; line-height: 1.72; }
+    .legal-section p + p { margin-top: 12px; }
+    .legal-section ul { margin: 12px 0 0; padding-left: 22px; }
+    .legal-section li + li { margin-top: 8px; }
+    .text-link { color: #ad9cff; font-weight: 700; }
+    .text-link:hover { color: white; }
+
+    footer { padding: 48px 0 28px; border-top: 1px solid rgba(255,255,255,.07); margin-top: 20px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr .7fr .7fr .7fr; gap: 36px; }
+    .footer-brand p { max-width: 420px; margin-top: 14px; color: var(--muted); }
+    .footer-col h4 { margin: 0 0 14px; }
+    .footer-col { color: #c9c5d8; }
+    .footer-col a { display: block; margin: 8px 0; color: #a9a5bb; }
+    .footer-col a:hover { color: white; }
+    .copyright {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: #777388;
+      font-size: .78rem;
+    }
+    .copyright-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .copyright-links a { color: #9d94b8; font-weight: 700; }
+    .copyright-links a:hover { color: white; }
+
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .nav-links a:not(.btn) { display: none; }
+      .legal-shell { padding: 28px 22px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .copyright { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img src="logo.jpg" alt="Logo Rozkmin Matmę" />
+        <span>rozkminmatme<small>korepetycje online</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Nawigacja">
+        <a href="index.html">Strona główna</a>
+        <a href="regulamin.html">Regulamin</a>
+        <a class="btn btn-primary btn-small" href="index.html#rezerwacja">Zarezerwuj lekcję</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="legal-page">
+    <div class="container legal-shell">
+      <div class="legal-head">
+        <div class="eyebrow">Dokument prawny</div>
+        <h1>Polityka prywatności</h1>
+        <p>Informacje o przetwarzaniu danych osobowych w związku z korzystaniem ze strony i usług korepetycji online Rozkmin Matmę.</p>
+      </div>
+
+      <div class="legal-meta">
+        <span class="legal-pill">Ostatnia aktualizacja: 16 lipca 2026</span>
+        <span class="legal-pill">Wersja: 1.0</span>
+        <span class="legal-pill">RODO</span>
+      </div>
+
+      <nav class="legal-toc" aria-label="Spis treści">
+        <strong>Spis treści</strong>
+        <a href="#administrator">1. Administrator danych</a>
+        <a href="#zakres">2. Zakres przetwarzanych danych</a>
+        <a href="#cele">3. Cele i podstawy prawne</a>
+        <a href="#odbiorcy">4. Odbiorcy danych</a>
+        <a href="#okres">5. Okres przechowywania</a>
+        <a href="#prawa">6. Prawa osób, których dane dotyczą</a>
+        <a href="#cookies">7. Pliki cookies</a>
+        <a href="#zmiany">8. Zmiany polityki</a>
+        <a href="#kontakt">9. Kontakt</a>
+      </nav>
+
+      <section class="legal-section" id="administrator">
+        <h2>1. Administrator danych</h2>
+        <p>Administratorem danych osobowych jest <strong>Rozkmin Matmę</strong> — indywidualna działalność korepetycyjna z matematyki online.</p>
+        <p>Kontakt w sprawach ochrony danych:<br />E-mail: <a class="text-link" href="mailto:rozkminmatme@gmail.com">rozkminmatme@gmail.com</a><br />Tel.: <a class="text-link" href="tel:+48887739890">887 739 890</a></p>
+      </section>
+
+      <section class="legal-section" id="zakres">
+        <h2>2. Zakres przetwarzanych danych</h2>
+        <p>W zależności od sposobu korzystania z serwisu przetwarzamy m.in.:</p>
+        <ul>
+          <li>imię i nazwisko,</li>
+          <li>adres e-mail,</li>
+          <li>numer telefonu (jeśli podany),</li>
+          <li>informacje podane przy rezerwacji (np. wybrany poziom lekcji, uwagi),</li>
+          <li>dane techniczne (adres IP, informacje o przeglądarce, pliki cookies).</li>
+        </ul>
+        <p>Obecnie rezerwacja odbywa się bez płatności online — nie zbieramy danych kart płatniczych ani informacji rozliczeniowych w systemie rezerwacji.</p>
+      </section>
+
+      <section class="legal-section" id="cele">
+        <h2>3. Cele i podstawy prawne przetwarzania</h2>
+        <p>Dane osobowe przetwarzamy w następujących celach:</p>
+        <ul>
+          <li><strong>Rezerwacja i realizacja lekcji</strong> — art. 6 ust. 1 lit. b RODO (umowa lub działania przed zawarciem umowy).</li>
+          <li><strong>Kontakt i obsługa zapytań</strong> — art. 6 ust. 1 lit. b lub f RODO (uzasadniony interes).</li>
+          <li><strong>Rozliczenie za zrealizowane lekcje</strong> — art. 6 ust. 1 lit. b RODO (wykonanie umowy).</li>
+          <li><strong>Prowadzenie strony i zapewnienie jej działania</strong> — art. 6 ust. 1 lit. f RODO (uzasadniony interes).</li>
+        </ul>
+      </section>
+
+      <section class="legal-section" id="odbiorcy">
+        <h2>4. Odbiorcy danych</h2>
+        <p>Dane mogą być przekazywane podmiotom wspierającym świadczenie usług, w tym:</p>
+        <ul>
+          <li><strong>Cal.com</strong> — system rezerwacji terminów,</li>
+          <li><strong>Google Meet</strong> — prowadzenie lekcji online,</li>
+          <li>dostawcy hostingu strony i poczty e-mail.</li>
+        </ul>
+        <p>Podmioty te przetwarzają dane na podstawie umów powierzenia lub własnych regulaminów, wyłącznie w zakresie niezbędnym do świadczenia usług.</p>
+      </section>
+
+      <section class="legal-section" id="okres">
+        <h2>5. Okres przechowywania danych</h2>
+        <p>Dane przechowujemy przez okres niezbędny do realizacji celu przetwarzania:</p>
+        <ul>
+          <li>dane związane z lekcjami — przez czas współpracy oraz okres wymagany przepisami podatkowymi i rachunkowymi,</li>
+          <li>dane kontaktowe z zapytań — do czasu udzielenia odpowiedzi, a następnie maksymalnie 12 miesięcy,</li>
+          <li>dane techniczne — zgodnie z polityką cookies i ustawieniami hostingu.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section" id="prawa">
+        <h2>6. Prawa osób, których dane dotyczą</h2>
+        <p>Przysługuje Ci prawo do:</p>
+        <ul>
+          <li>dostępu do danych,</li>
+          <li>sprostowania danych,</li>
+          <li>usunięcia danych,</li>
+          <li>ograniczenia przetwarzania,</li>
+          <li>przenoszenia danych,</li>
+          <li>wniesienia sprzeciwu,</li>
+          <li>cofnięcia zgody (jeśli przetwarzanie odbywa się na jej podstawie).</li>
+        </ul>
+        <p>Masz także prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</p>
+      </section>
+
+      <section class="legal-section" id="cookies">
+        <h2>7. Pliki cookies</h2>
+        <p>Strona może wykorzystywać pliki cookies niezbędne do prawidłowego działania serwisu, w tym widgetu rezerwacji (Cal.com).</p>
+        <p>Możesz zarządzać cookies w ustawieniach przeglądarki. Wyłączenie cookies może ograniczyć działanie kalendarza rezerwacji.</p>
+      </section>
+
+      <section class="legal-section" id="zmiany">
+        <h2>8. Zmiany polityki prywatności</h2>
+        <p>Polityka może być aktualizowana. O istotnych zmianach poinformujemy poprzez publikację nowej wersji na tej stronie wraz z datą aktualizacji.</p>
+      </section>
+
+      <section class="legal-section" id="kontakt">
+        <h2>9. Kontakt</h2>
+        <p>W sprawach dotyczących danych osobowych skontaktuj się z nami:</p>
+        <p>E-mail: <a class="text-link" href="mailto:rozkminmatme@gmail.com">rozkminmatme@gmail.com</a><br />Telefon: <a class="text-link" href="tel:+48887739890">887 739 890</a><br />WhatsApp: <a class="text-link" href="https://wa.me/48887739890" target="_blank" rel="noopener">887 739 890</a></p>
+        <p>Powiązane dokumenty: <a class="text-link" href="regulamin.html">Regulamin świadczenia usług</a></p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html"><img src="logo.jpg" alt="Logo Rozkmin Matmę" /><span>rozkminmatme<small>korepetycje online</small></span></a>
+          <p>Indywidualne korepetycje z matematyki online. Egzamin ósmoklasisty, liceum, technikum oraz matura podstawowa i rozszerzona.</p>
+        </div>
+        <div class="footer-col"><h4>Na skróty</h4><a href="index.html#jak-pracujemy">Jak pracujemy</a><a href="index.html#cennik">Cennik</a><a href="index.html#rezerwacja">Rezerwacja</a></div>
+        <div class="footer-col"><h4>Informacje prawne</h4><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></div>
+      </div>
+      <div class="copyright">
+        <span>© <span id="year"></span> Rozkmin Matmę. Wszelkie prawa zastrzeżone.</span>
+        <span class="copyright-links"><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

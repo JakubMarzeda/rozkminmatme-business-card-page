@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090912" />
+  <link rel="icon" href="logo.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="logo.jpg" />
+  <meta name="description" content="Rozkmin Matmę — korepetycje z matematyki online. Egzamin ósmoklasisty, liceum, technikum i matura. Indywidualne lekcje 1:1 na interaktywnej tablicy." />
+  <title>Rozkmin Matmę — korepetycje z matematyki online</title>
+  <style>
+    :root {
+      --bg: #070710;
+      --bg-soft: #0d0c18;
+      --panel: rgba(18, 17, 32, .78);
+      --panel-2: #11101d;
+      --line: rgba(142, 120, 255, .22);
+      --text: #f8f7ff;
+      --muted: #b9b6cd;
+      --muted-2: #8f8ba5;
+      --purple: #8a6cff;
+      --blue: #4b8dff;
+      --cyan: #43d7ff;
+      --pink: #bd72ff;
+      --success: #77e6b6;
+      --danger: #ff7b91;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .42);
+      --radius: 24px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(111, 76, 255, .20), transparent 36%),
+        radial-gradient(circle at 90% 20%, rgba(54, 129, 255, .13), transparent 28%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: min(var(--max), calc(100% - 36px)); margin-inline: auto; }
+    .section { padding: 110px 0; position: relative; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 800;
+      font-size: .76rem;
+      color: #9d8cff;
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+    }
+    h1, h2, h3 { margin: 0; line-height: 1.06; letter-spacing: -.035em; }
+    h1 { font-size: clamp(2.65rem, 6vw, 5.35rem); max-width: 900px; }
+    h2 { font-size: clamp(2rem, 4vw, 3.7rem); }
+    h3 { font-size: 1.3rem; }
+    p { margin: 0; color: var(--muted); }
+    .lead { font-size: clamp(1rem, 2vw, 1.22rem); max-width: 700px; }
+    .gradient-text {
+      background: linear-gradient(105deg, #ffffff 10%, #ad9cff 52%, #65c9ff 96%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      border-bottom: 1px solid transparent;
+      transition: .25s ease;
+    }
+    .nav-wrap.scrolled {
+      background: rgba(7, 7, 16, .78);
+      backdrop-filter: blur(18px);
+      border-bottom-color: rgba(255,255,255,.07);
+    }
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.025em; font-size: 1.13rem; }
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 0 28px rgba(84, 119, 255, .28);
+    }
+    .brand small { display: block; color: var(--muted-2); font-size: .69rem; font-weight: 600; letter-spacing: .01em; margin-top: -2px; }
+    .nav-links { display: flex; align-items: center; gap: 26px; color: #d9d6e7; font-size: .92rem; }
+    .nav-links a { transition: .2s ease; }
+    .nav-links a:hover { color: white; }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      min-height: 52px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: white;
+      font-weight: 800;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(115deg, #7657ff, #4d8dff 72%, #48d4ff);
+      box-shadow: 0 14px 36px rgba(84, 91, 255, .32);
+    }
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: -30% auto -30% -30%;
+      width: 34%;
+      transform: skewX(-18deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      animation: shine 4.8s ease-in-out infinite;
+    }
+    .btn-secondary { background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.12); }
+    .btn-small { min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: .9rem; }
+    @keyframes shine { 0%, 74% { left: -45%; } 100% { left: 145%; } }
+
+    .hero { padding: 80px 0 72px; min-height: calc(100svh - 78px); display: grid; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .85fr; gap: 72px; align-items: center; }
+    .hero-copy { position: relative; z-index: 2; }
+    .hero-copy .tag {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      border: 1px solid rgba(143, 122, 255, .25);
+      background: rgba(116, 83, 255, .08);
+      border-radius: 99px;
+      padding: 8px 12px;
+      color: #c8c1ff;
+      font-size: .84rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .tag-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 14px rgba(119,230,182,.8); }
+    .hero-copy p { margin-top: 24px; font-size: clamp(1.02rem, 2vw, 1.25rem); max-width: 670px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
+    .microcopy { margin-top: 14px !important; font-size: .86rem !important; color: var(--muted-2) !important; }
+    .trust-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .trust-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 13px;
+      border-radius: 13px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: .84rem;
+      color: #d9d7e6;
+    }
+    .trust-pill strong { color: white; }
+
+    .hero-visual { position: relative; min-height: 530px; display: grid; place-items: center; }
+    .orb {
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(101, 127, 255, .34), rgba(89, 55, 214, .11) 42%, transparent 72%);
+      filter: blur(3px);
+      animation: float 7s ease-in-out infinite;
+    }
+    .lesson-card {
+      width: min(100%, 460px);
+      border-radius: 30px;
+      padding: 20px;
+      background: linear-gradient(145deg, rgba(26,24,47,.93), rgba(10,10,20,.92));
+      border: 1px solid rgba(154, 133, 255, .24);
+      box-shadow: var(--shadow), 0 0 80px rgba(91, 76, 255, .12);
+      position: relative;
+      z-index: 2;
+      transform: rotate(-1deg);
+    }
+    .lesson-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .teacher { display: flex; align-items: center; gap: 12px; }
+    .teacher img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .teacher strong { display: block; font-size: .95rem; }
+    .teacher span { color: var(--muted-2); font-size: .8rem; }
+    .live { border-radius: 99px; padding: 7px 10px; font-size: .72rem; font-weight: 900; background: rgba(119,230,182,.1); color: var(--success); border: 1px solid rgba(119,230,182,.2); }
+    .whiteboard {
+      margin-top: 18px;
+      background:
+        linear-gradient(rgba(110, 108, 134, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110,108,134,.07) 1px, transparent 1px),
+        #f7f7fb;
+      background-size: 24px 24px;
+      min-height: 250px;
+      border-radius: 20px;
+      padding: 24px;
+      color: #131321;
+      overflow: hidden;
+      position: relative;
+    }
+    .math-line { font-family: "Comic Sans MS", "Segoe Print", cursive; font-size: 1.15rem; margin-bottom: 16px; transform: rotate(-1deg); }
+    .math-line strong { color: #654cff; }
+    .math-answer { display: inline-block; background: rgba(116, 83, 255, .10); border: 2px solid #7c61ff; padding: 6px 10px; border-radius: 10px; font-weight: 900; }
+    .curve { position: absolute; right: 22px; bottom: 18px; width: 135px; height: 110px; }
+    .curve::before, .curve::after { content: ""; position: absolute; }
+    .curve::before { inset: 50% 0 auto; height: 2px; background: #9996a8; }
+    .curve::after { left: 50%; top: 0; width: 2px; height: 100%; background: #9996a8; }
+    .parabola { position: absolute; width: 90px; height: 70px; left: 22px; top: 18px; border: 4px solid #6f58ff; border-top: 0; border-left-color: transparent; border-right-color: transparent; border-radius: 0 0 50% 50%; transform: rotate(180deg); }
+    .lesson-footer { display: flex; gap: 10px; margin-top: 14px; }
+    .lesson-footer span { flex: 1; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.075); border-radius: 12px; padding: 11px; color: #cac7db; font-size: .78rem; text-align: center; }
+    .float-badge {
+      position: absolute;
+      z-index: 4;
+      border-radius: 16px;
+      padding: 13px 15px;
+      background: rgba(19,18,32,.94);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 18px 50px rgba(0,0,0,.34);
+      font-size: .82rem;
+      color: #d9d7e6;
+      animation: float 5s ease-in-out infinite;
+    }
+    .float-badge strong { display:block; color:white; font-size: .92rem; }
+    .badge-a { left: -20px; bottom: 70px; }
+    .badge-b { right: -20px; top: 58px; animation-delay: -2.4s; }
+    .formula { position: absolute; color: rgba(170,156,255,.33); font-weight: 800; font-size: 1.2rem; animation: drift 9s linear infinite; }
+    .formula.f1 { left: 2%; top: 8%; }
+    .formula.f2 { right: 3%; bottom: 7%; animation-delay: -4s; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-13px); } }
+    @keyframes drift { 0%,100% { transform: translate(0,0) rotate(-4deg); } 50% { transform: translate(16px,-18px) rotate(5deg); } }
+
+    .numbers { border-top: 1px solid rgba(255,255,255,.07); border-bottom: 1px solid rgba(255,255,255,.07); background: rgba(255,255,255,.018); }
+    .numbers-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+    .number { padding: 30px 22px; text-align:center; border-right: 1px solid rgba(255,255,255,.07); }
+    .number:last-child { border-right: 0; }
+    .number strong { display:block; font-size: clamp(1.6rem,3vw,2.4rem); letter-spacing:-.04em; }
+    .number span { color: var(--muted-2); font-size:.88rem; }
+
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:32px; margin-bottom:48px; }
+    .section-head p { max-width:580px; }
+    .cards-main, .pricing-grid-main { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .offer-secondary { margin-top:36px; padding-top:32px; border-top:1px solid rgba(255,255,255,.07); }
+    .offer-secondary-label { text-align:center; color:var(--muted-2); font-size:.9rem; margin:0 0 18px; }
+    .trial-callout {
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 24px;
+      margin-bottom:28px; padding:20px 24px; border-radius:20px;
+      border:1px solid rgba(119,230,182,.28); background:linear-gradient(120deg, rgba(119,230,182,.08), rgba(113,81,255,.08));
+    }
+    .trial-callout strong { display:block; font-size:1.05rem; color:#e9fff4; margin-bottom:4px; }
+    .trial-callout p { margin:0; color:var(--muted); font-size:.92rem; max-width:640px; }
+    .trial-callout .btn-small { min-height:44px; flex-shrink:0; }
+    .cards-secondary, .pricing-secondary { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:820px; margin:0 auto; }
+    .card-compact { padding:22px; }
+    .card-compact .icon { width:44px; height:44px; font-size:1.25rem; margin-bottom:14px; }
+    .card-compact h3 { font-size:1.15rem; }
+    .card-compact p { font-size:.92rem; }
+    .card {
+      background: linear-gradient(145deg, rgba(22,20,39,.88), rgba(11,11,21,.86));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .card:hover { transform: translateY(-6px); border-color: rgba(143,120,255,.5); box-shadow: 0 20px 55px rgba(0,0,0,.24); }
+    .card::after { content:""; position:absolute; width:130px; height:130px; border-radius:50%; right:-70px; top:-70px; background:radial-gradient(circle, rgba(111,89,255,.18), transparent 68%); }
+    .icon {
+      width: 52px; height: 52px; border-radius: 15px; display:grid; place-items:center;
+      background: linear-gradient(145deg, #8d69ff, #4d8dff);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 12px 28px rgba(80,87,255,.25);
+      font-size: 1.45rem; margin-bottom:22px;
+    }
+    .card p { margin-top:12px; }
+    .card .tiny { margin-top:18px; color:#9e98b8; font-size:.84rem; }
+
+    .process { display:grid; grid-template-columns:.8fr 1.2fr; gap:54px; align-items:start; }
+    .process-copy { position:sticky; top:120px; }
+    .process-list { display:grid; gap:16px; }
+    .step { display:grid; grid-template-columns:58px 1fr; gap:18px; align-items:start; padding:24px; border-radius:20px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.026); }
+    .step-num { width:48px; height:48px; border-radius:14px; display:grid; place-items:center; font-weight:900; background:rgba(126,98,255,.13); border:1px solid rgba(126,98,255,.3); color:#b7abff; }
+    .step p { margin-top:7px; }
+
+    .how-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch; }
+    .feature-panel { padding:34px; border-radius:28px; border:1px solid rgba(255,255,255,.08); background:linear-gradient(145deg, rgba(21,20,38,.9), rgba(9,9,18,.9)); }
+    .feature-list { display:grid; gap:15px; margin-top:26px; }
+    .feature-item { display:flex; gap:13px; align-items:flex-start; }
+    .check { width:23px; height:23px; border-radius:7px; flex:0 0 23px; display:grid; place-items:center; color:#07120e; background:var(--success); font-weight:1000; font-size:.75rem; margin-top:2px; }
+    .feature-item strong { display:block; margin-bottom:2px; }
+    .feature-item p { font-size:.92rem; }
+    .meet-card { position:relative; overflow:hidden; min-height:430px; }
+    .meet-card::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 75% 20%, rgba(74,140,255,.25), transparent 36%), radial-gradient(circle at 20% 82%, rgba(149,87,255,.18), transparent 38%); }
+    .screen { position:relative; z-index:2; border-radius:22px; border:1px solid rgba(255,255,255,.12); background:#0a0a14; padding:13px; margin-top:22px; box-shadow:var(--shadow); }
+    .screen-bar { display:flex; align-items:center; gap:7px; padding:2px 4px 12px; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#504d61; }
+    .screen-main { display:grid; grid-template-columns:1fr 95px; gap:10px; min-height:260px; }
+    .board-mini { border-radius:14px; background:#f5f5fb; padding:22px; color:#171722; position:relative; overflow:hidden; }
+    .board-mini::after { content:"Δ = b² − 4ac"; position:absolute; right:18px; bottom:16px; font-family:cursive; color:#6d58ef; font-size:1.1rem; transform:rotate(-4deg); }
+    .people { display:grid; gap:10px; }
+    .person { border-radius:13px; background:linear-gradient(145deg,#25233a,#141321); display:grid; place-items:center; min-height:82px; color:#a9a5bc; font-size:.72rem; text-align:center; padding:8px; }
+    .person .avatar { width:35px; height:35px; border-radius:50%; margin-bottom:6px; background:linear-gradient(145deg,#805fff,#4c8aff); display:grid; place-items:center; color:white; }
+
+    .pricing-grid-main { align-items:stretch; }
+    .price-card { padding:30px; border-radius:24px; border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.026); display:flex; flex-direction:column; min-height:390px; }
+    .price-card.compact { min-height:auto; padding:24px 26px; }
+    .price-card.featured { border-color:rgba(132,104,255,.58); background:linear-gradient(160deg, rgba(113,81,255,.14), rgba(28,27,45,.75)); box-shadow:0 24px 70px rgba(60,48,145,.18); transform:translateY(-8px); }
+    .price-label { color:#aaa5bc; font-size:.86rem; }
+    .price { margin:20px 0 7px; font-size:2.7rem; font-weight:950; letter-spacing:-.06em; }
+    .price-card.compact .price { font-size:2.1rem; margin:12px 0 4px; }
+    .price-card.compact p { margin-bottom:0; font-size:.9rem; }
+    .price-card.compact .btn { margin-top:16px; align-self:flex-start; }
+    .price small { font-size:.94rem; color:var(--muted-2); letter-spacing:0; }
+    .price-card ul { list-style:none; padding:0; margin:24px 0 28px; display:grid; gap:11px; color:#d7d4e4; font-size:.91rem; }
+    .price-card li::before { content:"✓"; color:var(--success); font-weight:900; margin-right:9px; }
+    .price-card .btn { margin-top:auto; }
+    .ribbon { align-self:flex-start; background:rgba(135,105,255,.18); border:1px solid rgba(135,105,255,.32); color:#c4baff; padding:6px 9px; border-radius:99px; font-size:.72rem; font-weight:900; margin-bottom:14px; }
+
+    .testimonials { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .quote { padding:26px; border-radius:22px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.025); }
+    .stars { color:#ffd76a; letter-spacing:.12em; margin-bottom:18px; }
+    .quote blockquote { margin:0; font-size:1rem; color:#e9e7f2; }
+    .quote-footer { display:flex; align-items:center; gap:12px; margin-top:24px; }
+    .quote-avatar { width:42px; height:42px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(145deg,#6f55ec,#3d88e8); font-weight:900; }
+    .quote-footer strong { display:block; font-size:.9rem; }
+    .quote-footer span { color:var(--muted-2); font-size:.78rem; }
+
+    .booking-shell { border:1px solid rgba(137,108,255,.27); border-radius:30px; background:linear-gradient(145deg, rgba(23,21,42,.96), rgba(10,10,19,.96)); box-shadow:var(--shadow); overflow:visible; }
+    .booking-head { padding:34px 34px 24px; border-bottom:1px solid rgba(255,255,255,.07); display:flex; justify-content:space-between; gap:24px; align-items:flex-end; }
+    .booking-head p { max-width:620px; margin-top:10px; }
+    .booking-level-picker { padding:22px 34px 26px; border-bottom:1px solid rgba(255,255,255,.07); }
+    .booking-level-picker > p { margin:0 0 14px; font-size:.84rem; font-weight:800; color:#c4baff; letter-spacing:.04em; text-transform:uppercase; }
+    .booking-level-options { display:flex; flex-wrap:wrap; gap:10px; }
+    .booking-level-btn { appearance:none; border:1px solid rgba(137,108,255,.28); background:rgba(255,255,255,.03); color:#e9e7f2; border-radius:14px; padding:12px 16px; font:inherit; font-size:.88rem; font-weight:700; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+    .booking-level-btn:hover { border-color:rgba(137,108,255,.5); background:rgba(113,81,255,.1); }
+    .booking-level-btn.active { border-color:rgba(137,108,255,.72); background:linear-gradient(145deg, rgba(113,81,255,.22), rgba(66,126,255,.14)); box-shadow:0 10px 28px rgba(74,80,210,.18); }
+    .booking-level-btn strong { display:block; font-size:.92rem; margin-bottom:2px; }
+    .booking-level-btn span { color:var(--muted-2); font-size:.78rem; font-weight:600; }
+    .booking-embed-wrap { padding:28px 40px 36px; overflow:visible; }
+    .booking-embed-wrap #cal-embed { min-width:320px; min-height:720px; width:100%; }
+    .booking-embed-wrap iframe { border-radius:18px; }
+    .booking-note { padding:18px 34px 28px; font-size:.84rem; color:var(--muted-2); border-top:1px solid rgba(255,255,255,.07); }
+    .booking-note a { color:#ad9cff; font-weight:700; }
+    .booking-note a:hover { color:white; }
+
+    .faq { max-width:860px; margin:0 auto; display:grid; gap:12px; }
+    details { border:1px solid rgba(255,255,255,.085); border-radius:17px; background:rgba(255,255,255,.022); padding:0 20px; }
+    summary { list-style:none; cursor:pointer; font-weight:800; padding:19px 36px 19px 0; position:relative; }
+    summary::-webkit-details-marker { display:none; }
+    summary::after { content:"+"; position:absolute; right:0; top:15px; font-size:1.5rem; color:#9989ff; transition:.2s ease; }
+    details[open] summary::after { transform:rotate(45deg); }
+    details p { padding:0 0 20px; }
+
+    .cta-band { padding:46px; border-radius:30px; background:linear-gradient(120deg, rgba(117,82,255,.9), rgba(66,126,255,.86) 65%, rgba(60,201,255,.76)); position:relative; overflow:hidden; box-shadow:0 24px 70px rgba(74,80,210,.27); }
+    .cta-band::before { content:"π  x²  Δ  √"; position:absolute; right:-20px; bottom:-28px; font-size:6rem; font-weight:950; color:rgba(255,255,255,.1); letter-spacing:.08em; }
+    .cta-band h2 { max-width:720px; }
+    .cta-band p { color:rgba(255,255,255,.82); max-width:670px; margin:16px 0 26px; }
+    .cta-band .btn { background:white; color:#1b1640; box-shadow:0 14px 34px rgba(24,17,75,.24); }
+
+    footer { padding:48px 0 28px; border-top:1px solid rgba(255,255,255,.07); margin-top:100px; }
+    .footer-grid { display:grid; grid-template-columns:1.2fr .7fr .7fr .7fr; gap:36px; }
+    .footer-brand p { max-width:420px; margin-top:14px; }
+    .footer-col h4 { margin:0 0 14px; }
+    .footer-col { color:#c9c5d8; }
+    .footer-col a { display:block; margin:8px 0; color:#a9a5bb; }
+    .footer-col a:hover { color:white; }
+    .copyright { margin-top:34px; padding-top:22px; border-top:1px solid rgba(255,255,255,.06); display:flex; justify-content:space-between; gap:18px; color:#777388; font-size:.78rem; }
+    .copyright-links { display:flex; gap:18px; flex-wrap:wrap; }
+    .copyright-links a { color:#9d94b8; font-weight:700; }
+    .copyright-links a:hover { color:white; }
+
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    .mobile-menu { display:none; width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); color:white; }
+
+    @media (max-width: 980px) {
+      .nav-links { position:fixed; inset:78px 16px auto; display:none; flex-direction:column; align-items:stretch; gap:0; background:rgba(12,11,23,.97); border:1px solid rgba(255,255,255,.09); border-radius:18px; padding:12px; box-shadow:var(--shadow); }
+      .nav-links.open { display:flex; }
+      .nav-links a { padding:13px; border-radius:10px; }
+      .nav-links .btn { margin-top:8px; }
+      .mobile-menu { display:block; }
+      .hero { padding-top:58px; }
+      .hero-grid { grid-template-columns:1fr; gap:52px; }
+      .hero-visual { min-height:470px; }
+      .hero-copy { text-align:center; }
+      .hero-copy h1, .hero-copy p { margin-left:auto; margin-right:auto; }
+      .hero-actions, .trust-row { justify-content:center; }
+      .process { grid-template-columns:1fr; }
+      .process-copy { position:static; }
+      .how-grid { grid-template-columns:1fr; }
+      .wizard-steps { grid-template-columns:repeat(4,1fr); }
+      .wizard-step { justify-content:center; padding:6px; }
+      .wizard-step span:last-child { display:none; }
+      .cards-main, .pricing-grid-main, .cards-secondary, .pricing-secondary, .testimonials { grid-template-columns:1fr; }
+      .price-card.featured { transform:none; }
+    }
+
+    @media (max-width: 700px) {
+      .section { padding:78px 0; }
+      .container { width:min(var(--max), calc(100% - 24px)); }
+      .nav { min-height:70px; }
+      .nav-wrap .brand small { display:none; }
+      .hero { min-height:auto; padding:48px 0 66px; }
+      h1 { font-size:clamp(2.4rem,13vw,4rem); }
+      .hero-copy p { margin-top:18px; }
+      .hero-actions .btn { width:100%; }
+      .trust-row { display:grid; grid-template-columns:1fr 1fr; width:100%; }
+      .trust-pill { justify-content:center; text-align:center; }
+      .hero-visual { min-height:420px; }
+      .lesson-card { padding:13px; }
+      .whiteboard { min-height:220px; padding:18px; }
+      .badge-a { left:0; bottom:16px; }
+      .badge-b { right:0; top:0; }
+      .numbers-grid { grid-template-columns:1fr 1fr; }
+      .number:nth-child(2) { border-right:0; }
+      .number:nth-child(-n+2) { border-bottom:1px solid rgba(255,255,255,.07); }
+      .section-head { display:block; }
+      .section-head p { margin-top:16px; }
+      .cards-secondary, .pricing-secondary { max-width:none; }
+      .step { grid-template-columns:46px 1fr; padding:19px; }
+      .step-num { width:42px; height:42px; }
+      .feature-panel { padding:24px; }
+      .booking-head { display:block; padding:26px 22px 20px; }
+      .booking-level-picker { padding:18px 22px 22px; }
+      .booking-level-btn { flex:1 1 100%; }
+      .booking-embed-wrap { padding:20px 18px 28px; }
+      .booking-embed-wrap #cal-embed { min-height:820px; }
+      .booking-note { padding:16px 22px 22px; }
+      .cta-band { padding:30px 24px; }
+      .footer-grid { grid-template-columns:1fr; }
+      .copyright { flex-direction:column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap" id="top">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Rozkmin Matmę — strona główna">
+        <img src="logo.jpg" alt="Logo Rozkmin Matmę" />
+        <span>rozkminmatme<small>korepetycje online</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Główna nawigacja">
+        <a href="#jak-pracujemy">Jak pracujemy</a>
+        <a href="#dla-kogo">Dla kogo</a>
+        <a href="#cennik">Cennik</a>
+        <a href="#opinie">Opinie</a>
+        <a class="btn btn-primary btn-small" href="#rezerwacja">Zarezerwuj lekcję</a>
+      </nav>
+      <button class="mobile-menu" id="mobileMenu" aria-label="Otwórz menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="tag"><span class="tag-dot"></span> Zapisy na lekcje online są otwarte</div>
+          <h1>Matematyka w końcu <span class="gradient-text">zacznie mieć sens.</span></h1>
+          <p>Indywidualne korepetycje online — od egzaminu ósmoklasisty po maturę rozszerzoną. Liceum, technikum, podstawa i rozszerzenie. Bez wkuwania schematów, krok po kroku na interaktywnej tablicy.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#rezerwacja">Umów darmową lekcję próbną <span aria-hidden="true">→</span></a>
+            <a class="btn btn-secondary" href="#jak-pracujemy">Zobacz, jak pracujemy</a>
+          </div>
+          <p class="microcopy"><strong style="color:#b8f5d4;">Pierwsza lekcja jest za darmo</strong> — bez zobowiązań. Sprawdź, jak pracujemy, i dopiero potem decyduj o dalszej współpracy.</p>
+          <div class="trust-row">
+            <div class="trust-pill">🎁 <span><strong>1. lekcja</strong> za darmo</span></div>
+            <div class="trust-pill">🕒 <span><strong>1000+</strong> godzin zajęć</span></div>
+            <div class="trust-pill">💻 <span><strong>100%</strong> online</span></div>
+            <div class="trust-pill">🧠 <span>Tłumaczenie <strong>po ludzku</strong></span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="orb"></div>
+          <span class="formula f1">f(x)=ax²+bx+c</span>
+          <span class="formula f2">sin²α+cos²α=1</span>
+          <div class="float-badge badge-b"><strong>Google Meet</strong>Widzimy się i działamy na żywo</div>
+          <div class="lesson-card">
+            <div class="lesson-top">
+              <div class="teacher">
+                <img src="logo.jpg" alt="" />
+                <div><strong>Rozkmin Matmę</strong><span>Lekcja indywidualna 1:1</span></div>
+              </div>
+              <div class="live">● NA ŻYWO</div>
+            </div>
+            <div class="whiteboard">
+              <div class="math-line">Rozwiąż nierówność:</div>
+              <div class="math-line"><strong>x² − 5x + 6 ≤ 0</strong></div>
+              <div class="math-line">Δ = 25 − 24 = 1</div>
+              <div class="math-line">x₁ = 2, &nbsp; x₂ = 3</div>
+              <div class="math-answer">x ∈ [2, 3]</div>
+              <div class="curve"><div class="parabola"></div></div>
+            </div>
+            <div class="lesson-footer">
+              <span>🖊️ Interaktywna tablica</span>
+              <span>📄 Notatki po lekcji</span>
+            </div>
+          </div>
+          <div class="float-badge badge-a"><strong>Plan dopasowany do Ciebie</strong>Ósmoklasista, liceum, technikum albo matura</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="numbers" aria-label="Najważniejsze liczby">
+      <div class="container numbers-grid">
+        <div class="number"><strong>1:1</strong><span>pełna uwaga dla ucznia</span></div>
+        <div class="number"><strong>60 min</strong><span>konkretnej pracy</span></div>
+        <div class="number"><strong>E8 + matury</strong><span>główne etapy nauki</span></div>
+        <div class="number"><strong>Cała Polska</strong><span>bez dojazdów</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="dla-kogo">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Dla kogo</div>
+            <h2>Egzamin ósmoklasisty i matura — to nasze główne cele</h2>
+          </div>
+          <p class="lead">Przygotowujemy do egzaminu E8 i obu matur. Pomiędzy nimi pomagamy też uczniom liceum i technikum — sprawdziany, zaległości, rozszerzenie w szkole.</p>
+        </div>
+        <div class="cards-main">
+          <article class="card reveal">
+            <div class="icon">🎯</div>
+            <h3>Egzamin ósmoklasisty</h3>
+            <p>Klasa 7–8 przed egzaminem — gdy wynik decyduje, do której szkoły trafisz.</p>
+            <div class="tiny">Egzamin E8 · spokój zamiast paniki</div>
+          </article>
+          <article class="card reveal">
+            <div class="icon">📐</div>
+            <h3>Matura podstawowa</h3>
+            <p>Maturzyści podstawowi — zdać pewnie albo jeszcze podbić wynik przed majem.</p>
+            <div class="tiny">Ostatni rok · jasny plan powtórek</div>
+          </article>
+          <article class="card reveal">
+            <div class="icon">🎓</div>
+            <h3>Matura rozszerzona</h3>
+            <p>Ambitni maturzyści z planem na wymagające studia — medycyna, IT, inżynieria.</p>
+            <div class="tiny">Najwyższy poziom · gra o duży wynik</div>
+          </article>
+        </div>
+        <div class="offer-secondary reveal">
+          <p class="offer-secondary-label">Pomiędzy egzaminem a maturą — liceum i technikum</p>
+          <div class="cards-secondary">
+            <article class="card card-compact reveal">
+              <div class="icon">🏫</div>
+              <h3>Podstawa w szkole</h3>
+              <p>Syn w 1. technikum i chce być dobry z matmy? Nadrabiamy zaległości i budujemy pewność na sprawdzianach.</p>
+            </article>
+            <article class="card card-compact reveal">
+              <div class="icon">📊</div>
+              <h3>Rozszerzenie w szkole</h3>
+              <p>Trudniejszy program i szybsze tempo — utrzymujemy wysoki wynik i przygotowujemy do kolejnych etapów.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="jak-pracujemy">
+      <div class="container process">
+        <div class="process-copy reveal">
+          <div class="eyebrow">Prosty start</div>
+          <h2>Od pierwszej rozmowy do regularnych postępów</h2>
+          <p class="lead" style="margin-top:18px">Bez chaosu i przypadkowych tematów. Na początku ustalamy cel, potem realizujemy konkretny plan.</p>
+          <a class="btn btn-primary" href="#rezerwacja" style="margin-top:26px">Zacznij od pierwszej lekcji</a>
+        </div>
+        <div class="process-list">
+          <article class="step reveal"><div class="step-num">01</div><div><h3>Wybierasz termin i temat</h3><p>W kalendarzu rezerwujesz wolny termin, podajesz poziom, cel i zagadnienie, z którym potrzebujesz pomocy.</p></div></article>
+          <article class="step reveal"><div class="step-num">02</div><div><h3>Pierwsza lekcja bez presji</h3><p>Sprawdzamy, gdzie jest problem, rozwiązujemy zadania i upewniamy się, że sposób tłumaczenia Ci odpowiada.</p></div></article>
+          <article class="step reveal"><div class="step-num">03</div><div><h3>Ustalamy plan działania</h3><p>Dostajesz jasną informację: co już umiesz, czego brakuje i jak możemy dojść do Twojego celu.</p></div></article>
+          <article class="step reveal"><div class="step-num">04</div><div><h3>Pracujemy regularnie</h3><p>Najczęściej 1–2 razy w tygodniu. Zadania, notatki i tempo są dopasowane do ucznia.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container how-grid">
+        <div class="feature-panel reveal">
+          <div class="eyebrow">Jak wyglądają zajęcia</div>
+          <h2>Online, ale jak przy jednej tablicy</h2>
+          <p class="lead" style="margin-top:16px">Spotykamy się na Google Meet i wspólnie rozwiązujemy zadania na interaktywnej tablicy.</p>
+          <div class="feature-list">
+            <div class="feature-item"><span class="check">✓</span><div><strong>Wszystko widać krok po kroku</strong><p>Nie tylko wynik — pokazujemy tok myślenia i wyjaśniamy każdy etap.</p></div></div>
+            <div class="feature-item"><span class="check">✓</span><div><strong>Uczeń aktywnie pracuje</strong><p>Nie ogląda wykładu. Liczy, pyta, poprawia i od razu dostaje informację zwrotną.</p></div></div>
+            <div class="feature-item"><span class="check">✓</span><div><strong>Notatki zostają po lekcji</strong><p>Można wrócić do rozwiązań przed sprawdzianem albo egzaminem.</p></div></div>
+            <div class="feature-item"><span class="check">✓</span><div><strong>Bez dojazdów i straty czasu</strong><p>Wystarczy komputer, internet i spokojne miejsce do pracy.</p></div></div>
+          </div>
+        </div>
+        <div class="feature-panel meet-card reveal">
+          <div class="eyebrow">Technologia, która pomaga</div>
+          <h3>Google Meet + interaktywna tablica</h3>
+          <div class="screen">
+            <div class="screen-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="screen-main">
+              <div class="board-mini">
+                <div class="math-line">f(x) = x² − 4x + 3</div>
+                <div class="math-line">Wierzchołek: W = (2, −1)</div>
+                <div class="math-line">Miejsca zerowe: 1 i 3</div>
+              </div>
+              <div class="people">
+                <div class="person"><div class="avatar">R</div>prowadzący</div>
+                <div class="person"><div class="avatar">U</div>uczeń</div>
+                <div class="person">🎤<br/>rozmowa na żywo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cennik">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Cennik</div><h2>E8 i matury — wybierz swój cel</h2></div>
+          <p class="lead">Każda lekcja trwa 60 minut, prowadzona indywidualnie 1:1. Poniżej trzy główne poziomy — egzamin ósmoklasisty i obie matury.</p>
+        </div>
+        <div class="trial-callout reveal">
+          <div>
+            <strong>🎁 Pierwsza lekcja próbna za darmo</strong>
+            <p>Nie musisz od razu decydować. Umów pierwsze spotkanie bez opłaty, zobacz jak pracujemy i dopiero wtedy wybierz dalszą współpracę.</p>
+          </div>
+          <a class="btn btn-primary btn-small" href="#rezerwacja">Umów za darmo</a>
+        </div>
+        <div class="pricing-grid-main">
+          <article class="price-card reveal">
+            <div class="ribbon">INWESTYCJA W PRZYSZŁOŚĆ</div>
+            <div class="price-label">Egzamin ósmoklasisty</div>
+            <div class="price">100 zł <small>/ 60 min</small></div>
+            <p>Celujesz w 90%+ i wymarzoną szkołę? Przygotujemy Cię do egzaminu tak, że wynik nie będzie przypadkiem.</p>
+            <ul><li>Strategia pod zadania CKE</li><li>Praca nad błędami krok po kroku</li><li>Interaktywna tablica</li><li>Materiały po lekcji</li></ul>
+            <button class="btn btn-secondary price-cta" data-level="Egzamin ósmoklasisty">Wybierz ten poziom</button>
+          </article>
+          <article class="price-card featured reveal">
+            <div class="ribbon">NAJCZĘŚCIEJ WYBIERANE</div>
+            <div class="price-label">Matura podstawowa</div>
+            <div class="price">120 zł <small>/ 60 min</small></div>
+            <p>Zdaj maturę pewnie albo podnieś wynik. Powtórki działami, zadania z arkuszy CKE i strategia na egzamin.</p>
+            <ul><li>Plan powtórek do matury</li><li>Zadania zgodne z CKE</li><li>Strategia egzaminacyjna</li><li>Kontrola postępów</li></ul>
+            <button class="btn btn-primary price-cta" data-level="Matura podstawowa">Wybierz ten poziom</button>
+          </article>
+          <article class="price-card reveal">
+            <div class="ribbon">DRZWI NA STUDIA</div>
+            <div class="price-label">Matura rozszerzona</div>
+            <div class="price">150 zł <small>/ 60 min</small></div>
+            <p>Zapewnij sobie przyszłość. Wysoki wynik otwiera drzwi na wymarzone studia — inżynierię, medycynę, informatykę.</p>
+            <ul><li>Trudne zadania maturalne</li><li>Pełne uzasadnienia pisemne</li><li>Plan pod wymarzone studia</li><li>Praca nad strategią</li></ul>
+            <button class="btn btn-primary price-cta" data-level="Matura rozszerzona">Wybierz ten poziom</button>
+          </article>
+        </div>
+        <div class="offer-secondary reveal">
+          <p class="offer-secondary-label">Uczysz się w liceum lub technikum? Mamy też lekcje na bieżąco</p>
+          <div class="pricing-secondary">
+            <article class="price-card compact reveal">
+              <div class="price-label">Szkoła średnia · podstawa</div>
+              <div class="price">110 zł <small>/ 60 min</small></div>
+              <p>Sprawdziany, kartkówki, zaległości — dla uczniów, którzy chcą być dobrzy z matmy na co dzień.</p>
+              <button class="btn btn-secondary btn-small price-cta" data-level="Szkoła średnia — podstawa">Wybierz</button>
+            </article>
+            <article class="price-card compact reveal">
+              <div class="price-label">Szkoła średnia · rozszerzenie</div>
+              <div class="price">120 zł <small>/ 60 min</small></div>
+              <p>Rozszerzenie w szkole — trudniejszy program, zadania problemowe i utrzymanie wysokiego wyniku.</p>
+              <button class="btn btn-secondary btn-small price-cta" data-level="Szkoła średnia — rozszerzenie">Wybierz</button>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="opinie">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Opinie</div><h2>Co mówią uczniowie i rodzice</h2></div>
+        </div>
+        <div class="testimonials">
+          <article class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Na początku byłem strasznie zestresowany na lekcjach matematyki w szkole. Z czasem nabierałem pewności siebie — z próbnego egzaminu na 40% napisałem finalnie 90%.”</blockquote><div class="quote-footer"><div class="quote-avatar">S</div><div><strong>Szymon</strong><span>klasa 8 · egzamin ósmoklasisty</span></div></div></article>
+          <article class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Kompletnie nic nie rozumiałam na lekcjach i miałam bardzo słabe oceny. Podczas współpracy odzyskałam pewność siebie — z ledwej dwójki wyszłam na czwórkę.”</blockquote><div class="quote-footer"><div class="quote-avatar">J</div><div><strong>Julka</strong><span>klasa 2 liceum · poziom podstawowy</span></div></div></article>
+          <article class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Dzięki współpracy udało mi się wykręcić 80% z matury rozszerzonej i dostać się na wymarzone studia — bez współpracy byłoby to niemożliwe.”</blockquote><div class="quote-footer"><div class="quote-avatar">P</div><div><strong>Patryk</strong><span>matura rozszerzona</span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rezerwacja">
+      <div class="container booking-shell reveal">
+        <div class="booking-head">
+          <div><div class="eyebrow">Rezerwacja lekcji</div><h2>Wybierz poziom i umów lekcję</h2><p><strong style="color:#b8f5d4;">Pierwsza lekcja próbna jest za darmo.</strong> Wybierz poziom, zobacz wolne terminy i zarezerwuj spotkanie — po rezerwacji dostaniesz e-mail z potwierdzeniem i linkiem do Google Meet.</p></div>
+          <div class="live">● kalendarz na żywo</div>
+        </div>
+        <div class="booking-level-picker">
+          <p>Co Cię interesuje?</p>
+          <div class="booking-level-options" role="tablist" aria-label="Wybór poziomu lekcji">
+            <button type="button" class="booking-level-btn" role="tab" data-level="Egzamin ósmoklasisty" data-cal-link="rozkmin-matme/korepetycje-egzamin-8klasisty" aria-selected="false"><strong>Egzamin ósmoklasisty</strong><span>100 zł · 60 min</span></button>
+            <button type="button" class="booking-level-btn active" role="tab" data-level="Matura podstawowa" data-cal-link="rozkmin-matme/korepetycje-matura-podstawowa" aria-selected="true"><strong>Matura podstawowa</strong><span>120 zł · 60 min</span></button>
+            <button type="button" class="booking-level-btn" role="tab" data-level="Matura rozszerzona" data-cal-link="rozkmin-matme/korepetycje-matura-rozszerzona" aria-selected="false"><strong>Matura rozszerzona</strong><span>150 zł · 60 min</span></button>
+            <button type="button" class="booking-level-btn" role="tab" data-level="Szkoła średnia — podstawa" data-cal-link="rozkmin-matme/korepetycje-szkoła-srednia-poziom-podstawowy" aria-selected="false"><strong>Szkoła średnia · podstawa</strong><span>110 zł · 60 min</span></button>
+            <button type="button" class="booking-level-btn" role="tab" data-level="Szkoła średnia — rozszerzenie" data-cal-link="rozkmin-matme/korepetycje-szkoła-srednia-poziom-rozszerzony" aria-selected="false"><strong>Szkoła średnia · rozszerzenie</strong><span>120 zł · 60 min</span></button>
+          </div>
+        </div>
+        <div class="booking-embed-wrap">
+          <div id="cal-embed"></div>
+        </div>
+        <p class="booking-note">Masz pytanie przed rezerwacją? Napisz na <a href="https://wa.me/48887739890" target="_blank" rel="noopener">WhatsApp</a> — 887 739 890.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" style="justify-content:center;text-align:center"><div><div class="eyebrow">FAQ</div><h2>Najczęstsze pytania</h2></div></div>
+        <div class="faq">
+          <details class="reveal" open><summary>Czy pierwsza lekcja jest płatna?</summary><p>Nie — pierwsza lekcja próbna jest całkowicie za darmo. To spokojny sposób, żeby uczeń i rodzic sprawdzili, czy taki sposób pracy im odpowiada, zanim zdecydują o dalszej współpracy.</p></details>
+          <details class="reveal"><summary>Czy pierwsza lekcja zobowiązuje do regularnej współpracy?</summary><p>Nie. Po lekcji próbnej sami decydujecie, czy chcecie kontynuować. Kolejne spotkania są już płatne według cennika.</p></details>
+          <details class="reveal"><summary>Czego potrzebuję do lekcji online?</summary><p>Komputera lub laptopa, stabilnego internetu i mikrofonu. Pracujemy na Google Meet oraz interaktywnej tablicy — uczeń sam pisze i rozwiązuje zadania bezpośrednio na tablicy. Najwygodniej robi się to na tablecie graficznym podłączonym przez USB; pisanie myszką też jest możliwe, ale znacznie mniej komfortowe.</p></details>
+          <details class="reveal"><summary>Czy dostanę materiały po zajęciach?</summary><p>Tak. Rozwiązania i notatki z tablicy mogą zostać udostępnione po lekcji, aby uczeń mógł wrócić do nich przed sprawdzianem lub egzaminem.</p></details>
+          <details class="reveal"><summary>Jak często najlepiej mieć korepetycje?</summary><p>Najczęściej wystarcza jedno spotkanie tygodniowo. Przy dużych zaległościach lub bliskim egzaminie lepsze mogą być dwa spotkania w tygodniu.</p></details>
+          <details class="reveal"><summary>Czy można umówić tylko jedną lekcję z konkretnego tematu?</summary><p>Tak. Możesz umówić pojedyncze spotkanie, np. przed sprawdzianem. Regularna współpraca nie jest wymagana.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:20px">
+      <div class="container cta-band reveal">
+        <h2>Nie czekaj, aż zaległości zrobią się jeszcze większe.</h2>
+        <p>Umów darmową lekcję próbną — bez zobowiązań. Sprawdź, jak wygląda matematyka tłumaczona spokojnie, konkretnie i bez oceniania.</p>
+        <a class="btn" href="#rezerwacja">Umów darmową lekcję próbną</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top"><img src="logo.jpg" alt="Logo Rozkmin Matmę" /><span>rozkminmatme<small>korepetycje online</small></span></a>
+          <p>Indywidualne korepetycje z matematyki online. Egzamin ósmoklasisty, liceum, technikum oraz matura podstawowa i rozszerzona.</p>
+        </div>
+        <div class="footer-col"><h4>Na skróty</h4><a href="#jak-pracujemy">Jak pracujemy</a><a href="#cennik">Cennik</a><a href="#opinie">Opinie</a><a href="#rezerwacja">Rezerwacja</a></div>
+        <div class="footer-col"><h4>Kontakt</h4><a href="tel:+48887739890">887 739 890</a><a href="https://instagram.com/rozkminmatme" target="_blank" rel="noopener">Instagram @rozkminmatme</a><span style="display:block;margin-top:8px;color:#8f8aa4">Lekcje online — cała Polska</span></div>
+        <div class="footer-col"><h4>Informacje prawne</h4><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></div>
+      </div>
+      <div class="copyright"><span>© <span id="year"></span> Rozkmin Matmę. Wszelkie prawa zastrzeżone.</span><span class="copyright-links"><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></span></div>
+    </div>
+  </footer>
+
+  <script>
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ['initNamespace', namespace]);
+          } else {
+            p(cal, ar);
+          }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    Cal('init', { origin: 'https://app.cal.com' });
+    Cal('ui', {
+      theme: 'dark',
+      language: 'pl',
+      layout: 'month_view',
+      hideEventTypeDetails: false,
+      cssVarsPerTheme: {
+        dark: {
+          'cal-brand': '#7657ff',
+          'cal-brand-emphasis': '#8d69ff',
+          'cal-brand-text': '#f8f7ff',
+          'cal-brand-subtle': '#4d408d',
+          'cal-brand-accent': '#f8f7ff',
+          'cal-text': '#d9d7e6',
+          'cal-text-emphasis': '#f8f7ff',
+          'cal-text-subtle': '#b9b6cd',
+          'cal-text-muted': '#8f8ba5',
+          'cal-text-inverted': '#070710',
+          'cal-bg': '#0d0c18',
+          'cal-bg-emphasis': '#17152a',
+          'cal-bg-subtle': '#12101d',
+          'cal-bg-muted': '#0a0912',
+          'cal-bg-inverted': '#f8f7ff',
+          'cal-border': 'rgba(142, 120, 255, .22)',
+          'cal-border-emphasis': 'rgba(143, 120, 255, .5)',
+          'cal-border-subtle': 'rgba(255, 255, 255, .08)',
+          'cal-border-muted': 'rgba(255, 255, 255, .05)',
+          'cal-border-booker': 'rgba(137, 108, 255, .27)',
+          'cal-border-booker-width': '1px',
+          'radius': '0.85rem',
+          'spacing': '5px'
+        }
+      }
+    });
+
+    const CAL_ORIGIN = 'https://app.cal.com';
+    const calEmbedEl = document.getElementById('cal-embed');
+    const bookingLevelBtns = document.querySelectorAll('.booking-level-btn');
+    let calEmbedReady = false;
+
+    function resetCalEmbed() {
+      calEmbedEl.innerHTML = '';
+      calEmbedEl.classList.remove('cal-inline-container');
+      if (window.Cal?.inlineEl) window.Cal.inlineEl = undefined;
+      calEmbedReady = false;
+    }
+
+    function buildCalEmbedUrl(calLink) {
+      const url = new URL(`${calLink.replace(/^\//, '')}/embed`, `${CAL_ORIGIN}/`);
+      url.searchParams.set('embed', '');
+      url.searchParams.set('layout', 'month_view');
+      url.searchParams.set('__cal.reloadTs', Date.now().toString());
+      return url.toString();
+    }
+
+    function loadCalEmbed(calLink) {
+      const iframe = calEmbedEl.querySelector('iframe');
+
+      if (calEmbedReady && iframe) {
+        iframe.src = buildCalEmbedUrl(calLink);
+        return;
+      }
+
+      resetCalEmbed();
+      Cal('inline', {
+        elementOrSelector: '#cal-embed',
+        calLink,
+        config: { layout: 'month_view' }
+      });
+      calEmbedReady = true;
+    }
+
+    function selectBookingLevel(level, scrollToCalendar) {
+      let matched = false;
+      bookingLevelBtns.forEach(btn => {
+        const active = btn.dataset.level === level;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', String(active));
+        if (active) {
+          matched = true;
+          loadCalEmbed(btn.dataset.calLink);
+        }
+      });
+      if (scrollToCalendar) {
+        calEmbedEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      return matched;
+    }
+
+    bookingLevelBtns.forEach(btn => btn.addEventListener('click', () => {
+      selectBookingLevel(btn.dataset.level, false);
+    }));
+
+    selectBookingLevel('Matura podstawowa', false);
+
+    window.selectBookingLevel = selectBookingLevel;
+  </script>
+  <script>
+    const navWrap = document.querySelector('.nav-wrap');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => navWrap.classList.toggle('scrolled', window.scrollY > 20));
+    mobileMenu.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      mobileMenu.setAttribute('aria-expanded', String(open));
+      mobileMenu.textContent = open ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      mobileMenu.setAttribute('aria-expanded', 'false');
+      mobileMenu.textContent = '☰';
+    }));
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.price-cta').forEach(btn => btn.addEventListener('click', () => {
+      const level = btn.dataset.level;
+      document.getElementById('rezerwacja').scrollIntoView({ behavior: 'smooth' });
+      if (level && window.selectBookingLevel) window.selectBookingLevel(level, true);
+    }));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
