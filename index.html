@@ -30,7 +30,8 @@
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    @supports (overflow: clip) { html, body { overflow-x: clip; } }
     body {
       margin: 0;
       color: var(--text);
@@ -40,7 +41,6 @@
         var(--bg);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.55;
-      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -346,32 +346,65 @@
     .price-card .btn { margin-top:auto; }
     .ribbon { align-self:flex-start; background:rgba(135,105,255,.18); border:1px solid rgba(135,105,255,.32); color:#c4baff; padding:6px 9px; border-radius:99px; font-size:.72rem; font-weight:900; margin-bottom:14px; }
 
-    .testimonials { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-    .quote { padding:26px; border-radius:22px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.025); }
-    .stars { color:#ffd76a; letter-spacing:.12em; margin-bottom:18px; }
-    .quote blockquote { margin:0; font-size:1rem; color:#e9e7f2; }
-    .quote-footer { display:flex; align-items:center; gap:12px; margin-top:24px; }
-    .quote-avatar { width:42px; height:42px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(145deg,#6f55ec,#3d88e8); font-weight:900; }
-    .quote-footer strong { display:block; font-size:.9rem; }
-    .quote-footer span { color:var(--muted-2); font-size:.78rem; }
+    .wa-icon { width:20px; height:20px; flex-shrink:0; fill:currentColor; }
+    .btn-whatsapp { background:linear-gradient(115deg, #1fb855, #25d366); box-shadow:0 14px 36px rgba(37, 211, 102, .25); color:#04150b; }
 
-    .booking-shell { border:1px solid rgba(137,108,255,.27); border-radius:30px; background:linear-gradient(145deg, rgba(23,21,42,.96), rgba(10,10,19,.96)); box-shadow:var(--shadow); overflow:visible; }
-    .booking-head { padding:34px 34px 24px; border-bottom:1px solid rgba(255,255,255,.07); display:flex; justify-content:space-between; gap:24px; align-items:flex-end; }
-    .booking-head p { max-width:620px; margin-top:10px; }
-    .booking-level-picker { padding:22px 34px 26px; border-bottom:1px solid rgba(255,255,255,.07); }
-    .booking-level-picker > p { margin:0 0 14px; font-size:.84rem; font-weight:800; color:#c4baff; letter-spacing:.04em; text-transform:uppercase; }
-    .booking-level-options { display:flex; flex-wrap:wrap; gap:10px; }
-    .booking-level-btn { appearance:none; border:1px solid rgba(137,108,255,.28); background:rgba(255,255,255,.03); color:#e9e7f2; border-radius:14px; padding:12px 16px; font:inherit; font-size:.88rem; font-weight:700; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease, box-shadow .2s ease; }
-    .booking-level-btn:hover { border-color:rgba(137,108,255,.5); background:rgba(113,81,255,.1); }
-    .booking-level-btn.active { border-color:rgba(137,108,255,.72); background:linear-gradient(145deg, rgba(113,81,255,.22), rgba(66,126,255,.14)); box-shadow:0 10px 28px rgba(74,80,210,.18); }
-    .booking-level-btn strong { display:block; font-size:.92rem; margin-bottom:2px; }
-    .booking-level-btn span { color:var(--muted-2); font-size:.78rem; font-weight:600; }
-    .booking-embed-wrap { padding:28px 40px 36px; overflow:visible; }
-    .booking-embed-wrap #cal-embed { min-width:320px; min-height:720px; width:100%; }
-    .booking-embed-wrap iframe { border-radius:18px; }
-    .booking-note { padding:18px 34px 28px; font-size:.84rem; color:var(--muted-2); border-top:1px solid rgba(255,255,255,.07); }
-    .booking-note a { color:#ad9cff; font-weight:700; }
-    .booking-note a:hover { color:white; }
+    /* Opinie — oryginalne screeny */
+    .reviews { display:grid; gap:14px; max-width:1040px; margin:0 auto; }
+    .review-shot { display:block; width:100%; padding:0; border:1px solid rgba(255,255,255,.07); border-radius:14px; overflow:hidden; background:#1e1f22; cursor:zoom-in; box-shadow:0 14px 40px rgba(0,0,0,.28); transition:transform .2s ease, border-color .2s ease; }
+    .review-shot:hover { transform:translateY(-3px); border-color:rgba(143,120,255,.4); }
+    .review-shot img { width:100%; height:auto; }
+    .reviews-hint { text-align:center; color:var(--muted-2); font-size:.82rem; margin-top:14px; }
+    .reviews-cta { margin-top:18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 24px; padding:22px 24px; border-radius:20px; border:1px solid rgba(37,211,102,.25); background:linear-gradient(120deg, rgba(37,211,102,.07), rgba(113,81,255,.08)); }
+    .reviews-cta strong { display:block; font-size:1.05rem; }
+    .reviews-cta p { font-size:.92rem; }
+    .proof-dialog { border:0; padding:0; background:transparent; max-width:min(1100px, calc(100vw - 24px)); width:100%; }
+    .proof-dialog::backdrop { background:rgba(4,4,10,.82); backdrop-filter:blur(4px); }
+    .proof-dialog img { width:100%; height:auto; border-radius:12px; box-shadow:var(--shadow); }
+    .proof-dialog .proof-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; }
+    .proof-dialog .proof-close { display:block; margin:12px auto 0; }
+    .proof-dialog .proof-hint { display:none; text-align:center; color:#c9c5d8; font-size:.8rem; margin-top:8px; }
+
+    /* Sekcja kontaktu */
+    .contact-shell { display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; padding:42px; border:1px solid rgba(137,108,255,.27); border-radius:30px; background:linear-gradient(145deg, rgba(23,21,42,.96), rgba(10,10,19,.96)); box-shadow:var(--shadow); }
+    .contact-shell .lead { margin-top:14px; }
+    .contact-actions { display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px; margin-top:26px; }
+    .contact-number { color:#d9d7e6; font-weight:800; letter-spacing:.02em; }
+    .contact-number span { display:block; color:var(--muted-2); font-weight:600; font-size:.78rem; letter-spacing:0; }
+    .contact-steps { display:grid; gap:12px; }
+    .contact-step { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; border-radius:16px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); }
+    .contact-step p { font-size:.9rem; margin-top:2px; }
+
+    /* Widget WhatsApp */
+    .wa-widget { position:fixed; right:20px; bottom:20px; z-index:80; font-family:inherit; }
+    .wa-fab { width:62px; height:62px; border-radius:50%; border:0; display:grid; place-items:center; color:white; background:#25d366; box-shadow:0 12px 32px rgba(0,0,0,.4), 0 0 0 0 rgba(37,211,102,.5); animation:wa-pulse 2.8s ease-out infinite; transition:transform .2s ease; }
+    .wa-fab:hover { transform:scale(1.06); }
+    .wa-fab .wa-icon { width:32px; height:32px; }
+    .wa-fab .wa-close-icon { display:none; font-size:1.6rem; line-height:1; }
+    .wa-widget.open .wa-fab { animation:none; }
+    .wa-widget.open .wa-fab .wa-icon { display:none; }
+    .wa-widget.open .wa-fab .wa-close-icon { display:block; }
+    @keyframes wa-pulse { 0% { box-shadow:0 12px 32px rgba(0,0,0,.4), 0 0 0 0 rgba(37,211,102,.5); } 70%,100% { box-shadow:0 12px 32px rgba(0,0,0,.4), 0 0 0 16px rgba(37,211,102,0); } }
+    .wa-teaser { position:absolute; right:74px; bottom:10px; width:max-content; max-width:230px; padding:10px 14px; border-radius:14px 14px 4px 14px; background:white; color:#111b21; font-size:.86rem; font-weight:600; box-shadow:0 12px 30px rgba(0,0,0,.35); opacity:0; transform:translateY(6px); pointer-events:none; transition:opacity .3s ease, transform .3s ease; }
+    .wa-widget.teasing:not(.open) .wa-teaser { opacity:1; transform:none; pointer-events:auto; cursor:pointer; }
+    .wa-panel { position:absolute; right:0; bottom:78px; width:360px; max-width:calc(100vw - 32px); border-radius:20px; overflow:hidden; background:#0b141a; box-shadow:0 24px 70px rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.08); opacity:0; visibility:hidden; transform:translateY(12px) scale(.98); transform-origin:bottom right; transition:opacity .22s ease, transform .22s ease, visibility 0s linear .22s; }
+    .wa-widget.open .wa-panel { opacity:1; visibility:visible; transform:none; transition:opacity .22s ease, transform .22s ease; }
+    .wa-panel-head { display:flex; align-items:center; gap:12px; padding:16px 18px; background:#075e54; background:linear-gradient(120deg, #075e54, #128c7e); }
+    .wa-panel-head img { width:44px; height:44px; border-radius:50%; object-fit:cover; background:#0b141a; }
+    .wa-panel-head strong { display:block; color:white; font-size:1rem; line-height:1.2; }
+    .wa-panel-head span { color:rgba(255,255,255,.8); font-size:.78rem; }
+    .wa-panel-body { padding:18px; background:#0b141a; background-image:radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px); background-size:14px 14px; }
+    .wa-bubble { position:relative; max-width:92%; padding:10px 12px 8px; border-radius:0 12px 12px 12px; background:#202c33; color:#e9edef; font-size:.9rem; line-height:1.45; }
+    .wa-bubble small { display:block; text-align:right; color:#8696a0; font-size:.68rem; margin-top:4px; }
+    .wa-topics-label { margin:16px 0 8px; color:#8696a0; font-size:.76rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .wa-topics { display:flex; flex-wrap:wrap; gap:8px; }
+    .wa-topic { border:1px solid rgba(37,211,102,.35); background:rgba(37,211,102,.06); color:#d1f7df; border-radius:99px; padding:7px 12px; font-size:.8rem; font-weight:700; transition:background .2s ease, border-color .2s ease; }
+    .wa-topic:hover { background:rgba(37,211,102,.14); }
+    .wa-topic[aria-pressed="true"] { background:#25d366; border-color:#25d366; color:#04150b; }
+    .wa-panel-foot { padding:14px 18px 18px; background:#0b141a; }
+    .wa-start { width:100%; min-height:50px; border-radius:99px; background:#25d366; color:#04150b; font-weight:900; }
+    .wa-start:hover { transform:none; background:#2ee575; }
+    .wa-foot-note { text-align:center; color:#8696a0; font-size:.74rem; margin-top:10px; }
 
     .faq { max-width:860px; margin:0 auto; display:grid; gap:12px; }
     details { border:1px solid rgba(255,255,255,.085); border-radius:17px; background:rgba(255,255,255,.022); padding:0 20px; }
@@ -412,18 +445,18 @@
       .mobile-menu { display:block; }
       .hero { padding-top:58px; }
       .hero-grid { grid-template-columns:1fr; gap:52px; }
-      .hero-visual { min-height:470px; }
+      .hero-visual { min-height:470px; overflow:hidden; overflow:clip; }
+      .badge-a { left:0; }
+      .badge-b { right:0; }
+      .contact-shell { grid-template-columns:1fr; }
       .hero-copy { text-align:center; }
       .hero-copy h1, .hero-copy p { margin-left:auto; margin-right:auto; }
       .hero-actions, .trust-row { justify-content:center; }
       .process { grid-template-columns:1fr; }
       .process-copy { position:static; }
       .how-grid { grid-template-columns:1fr; }
-      .wizard-steps { grid-template-columns:repeat(4,1fr); }
-      .wizard-step { justify-content:center; padding:6px; }
-      .wizard-step span:last-child { display:none; }
-      .cards-main, .pricing-grid-main, .cards-secondary, .pricing-secondary, .testimonials { grid-template-columns:1fr; }
-      .price-card.featured { transform:none; }
+      .cards-main, .pricing-grid-main, .cards-secondary, .pricing-secondary { grid-template-columns:1fr; }
+            .price-card.featured { transform:none; }
     }
 
     @media (max-width: 700px) {
@@ -451,13 +484,17 @@
       .step { grid-template-columns:46px 1fr; padding:19px; }
       .step-num { width:42px; height:42px; }
       .feature-panel { padding:24px; }
-      .booking-head { display:block; padding:26px 22px 20px; }
-      .booking-level-picker { padding:18px 22px 22px; }
-      .booking-level-btn { flex:1 1 100%; }
-      .booking-embed-wrap { padding:20px 18px 28px; }
-      .booking-embed-wrap #cal-embed { min-height:820px; }
-      .booking-note { padding:16px 22px 22px; }
+      .contact-shell { padding:28px 22px; }
+      .contact-actions .btn { width:100%; }
+      .reviews-cta .btn { width:100%; }
+      .proof-dialog .proof-scroll img { width:auto; max-width:none; height:auto; max-height:70vh; }
+      .proof-dialog .proof-hint { display:block; }
       .cta-band { padding:30px 24px; }
+      .cta-band .btn { width:100%; }
+      .wa-widget { right:14px; bottom:14px; }
+      .wa-fab { width:58px; height:58px; }
+      .wa-panel { position:fixed; left:12px; right:12px; bottom:84px; width:auto; max-width:none; }
+      .wa-teaser { max-width:200px; }
       .footer-grid { grid-template-columns:1fr; }
       .copyright { flex-direction:column; }
     }
@@ -469,6 +506,9 @@
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+  </svg>
   <header class="nav-wrap" id="top">
     <div class="container nav">
       <a class="brand" href="#top" aria-label="Rozkmin Matmę — strona główna">
@@ -480,7 +520,7 @@
         <a href="#dla-kogo">Dla kogo</a>
         <a href="#cennik">Cennik</a>
         <a href="#opinie">Opinie</a>
-        <a class="btn btn-primary btn-small" href="#rezerwacja">Zarezerwuj lekcję</a>
+        <a class="btn btn-primary btn-small" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
       </nav>
       <button class="mobile-menu" id="mobileMenu" aria-label="Otwórz menu" aria-expanded="false">☰</button>
     </div>
@@ -494,10 +534,10 @@
           <h1>Matematyka w końcu <span class="gradient-text">zacznie mieć sens.</span></h1>
           <p>Indywidualne korepetycje online — od egzaminu ósmoklasisty po maturę rozszerzoną. Liceum, technikum, podstawa i rozszerzenie. Bez wkuwania schematów, krok po kroku na interaktywnej tablicy.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#rezerwacja">Umów darmową lekcję próbną <span aria-hidden="true">→</span></a>
-            <a class="btn btn-secondary" href="#jak-pracujemy">Zobacz, jak pracujemy</a>
+            <a class="btn btn-primary" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
+            <a class="btn btn-secondary" href="#opinie">Zobacz opinie uczniów</a>
           </div>
-          <p class="microcopy"><strong style="color:#b8f5d4;">Pierwsza lekcja jest za darmo</strong> — bez zobowiązań. Sprawdź, jak pracujemy, i dopiero potem decyduj o dalszej współpracy.</p>
+          <p class="microcopy"><strong style="color:#b8f5d4;">Pierwsza lekcja jest za darmo</strong> — napisz na WhatsApp, a ustalimy termin. Bez zobowiązań.</p>
           <div class="trust-row">
             <div class="trust-pill">🎁 <span><strong>1. lekcja</strong> za darmo</span></div>
             <div class="trust-pill">🕒 <span><strong>1000+</strong> godzin zajęć</span></div>
@@ -599,10 +639,10 @@
           <div class="eyebrow">Prosty start</div>
           <h2>Od pierwszej rozmowy do regularnych postępów</h2>
           <p class="lead" style="margin-top:18px">Bez chaosu i przypadkowych tematów. Na początku ustalamy cel, potem realizujemy konkretny plan.</p>
-          <a class="btn btn-primary" href="#rezerwacja" style="margin-top:26px">Zacznij od pierwszej lekcji</a>
+          <a class="btn btn-primary" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener" style="margin-top:26px"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
         </div>
         <div class="process-list">
-          <article class="step reveal"><div class="step-num">01</div><div><h3>Wybierasz termin i temat</h3><p>W kalendarzu rezerwujesz wolny termin, podajesz poziom, cel i zagadnienie, z którym potrzebujesz pomocy.</p></div></article>
+          <article class="step reveal"><div class="step-num">01</div><div><h3>Piszesz na WhatsApp</h3><p>Krótko opisujesz poziom, cel i zagadnienie, z którym potrzebujesz pomocy — razem ustalamy dogodny termin pierwszej lekcji.</p></div></article>
           <article class="step reveal"><div class="step-num">02</div><div><h3>Pierwsza lekcja bez presji</h3><p>Sprawdzamy, gdzie jest problem, rozwiązujemy zadania i upewniamy się, że sposób tłumaczenia Ci odpowiada.</p></div></article>
           <article class="step reveal"><div class="step-num">03</div><div><h3>Ustalamy plan działania</h3><p>Dostajesz jasną informację: co już umiesz, czego brakuje i jak możemy dojść do Twojego celu.</p></div></article>
           <article class="step reveal"><div class="step-num">04</div><div><h3>Pracujemy regularnie</h3><p>Najczęściej 1–2 razy w tygodniu. Zadania, notatki i tempo są dopasowane do ucznia.</p></div></article>
@@ -654,9 +694,9 @@
         <div class="trial-callout reveal">
           <div>
             <strong>🎁 Pierwsza lekcja próbna za darmo</strong>
-            <p>Nie musisz od razu decydować. Umów pierwsze spotkanie bez opłaty, zobacz jak pracujemy i dopiero wtedy wybierz dalszą współpracę.</p>
+            <p>Nie musisz od razu decydować. Napisz na WhatsApp, umów pierwsze spotkanie bez opłaty, zobacz jak pracujemy i dopiero wtedy wybierz dalszą współpracę.</p>
           </div>
-          <a class="btn btn-primary btn-small" href="#rezerwacja">Umów za darmo</a>
+          <a class="btn btn-whatsapp btn-small" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
         </div>
         <div class="pricing-grid-main">
           <article class="price-card reveal">
@@ -665,7 +705,7 @@
             <div class="price">100 zł <small>/ 60 min</small></div>
             <p>Celujesz w 90%+ i wymarzoną szkołę? Przygotujemy Cię do egzaminu tak, że wynik nie będzie przypadkiem.</p>
             <ul><li>Strategia pod zadania CKE</li><li>Praca nad błędami krok po kroku</li><li>Interaktywna tablica</li><li>Materiały po lekcji</li></ul>
-            <button class="btn btn-secondary price-cta" data-level="Egzamin ósmoklasisty">Wybierz ten poziom</button>
+            <a class="btn btn-secondary price-cta" href="https://wa.me/48517524484" data-wa-open data-level="Egzamin ósmoklasisty" target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Zapytaj o termin</a>
           </article>
           <article class="price-card featured reveal">
             <div class="ribbon">NAJCZĘŚCIEJ WYBIERANE</div>
@@ -673,7 +713,7 @@
             <div class="price">120 zł <small>/ 60 min</small></div>
             <p>Zdaj maturę pewnie albo podnieś wynik. Powtórki działami, zadania z arkuszy CKE i strategia na egzamin.</p>
             <ul><li>Plan powtórek do matury</li><li>Zadania zgodne z CKE</li><li>Strategia egzaminacyjna</li><li>Kontrola postępów</li></ul>
-            <button class="btn btn-primary price-cta" data-level="Matura podstawowa">Wybierz ten poziom</button>
+            <a class="btn btn-primary price-cta" href="https://wa.me/48517524484" data-wa-open data-level="Matura podstawowa" target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Zapytaj o termin</a>
           </article>
           <article class="price-card reveal">
             <div class="ribbon">DRZWI NA STUDIA</div>
@@ -681,7 +721,7 @@
             <div class="price">150 zł <small>/ 60 min</small></div>
             <p>Zapewnij sobie przyszłość. Wysoki wynik otwiera drzwi na wymarzone studia — inżynierię, medycynę, informatykę.</p>
             <ul><li>Trudne zadania maturalne</li><li>Pełne uzasadnienia pisemne</li><li>Plan pod wymarzone studia</li><li>Praca nad strategią</li></ul>
-            <button class="btn btn-primary price-cta" data-level="Matura rozszerzona">Wybierz ten poziom</button>
+            <a class="btn btn-primary price-cta" href="https://wa.me/48517524484" data-wa-open data-level="Matura rozszerzona" target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Zapytaj o termin</a>
           </article>
         </div>
         <div class="offer-secondary reveal">
@@ -691,13 +731,13 @@
               <div class="price-label">Szkoła średnia · podstawa</div>
               <div class="price">110 zł <small>/ 60 min</small></div>
               <p>Sprawdziany, kartkówki, zaległości — dla uczniów, którzy chcą być dobrzy z matmy na co dzień.</p>
-              <button class="btn btn-secondary btn-small price-cta" data-level="Szkoła średnia — podstawa">Wybierz</button>
+              <a class="btn btn-secondary btn-small price-cta" href="https://wa.me/48517524484" data-wa-open data-level="Szkoła średnia — podstawa" target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Zapytaj o termin</a>
             </article>
             <article class="price-card compact reveal">
               <div class="price-label">Szkoła średnia · rozszerzenie</div>
               <div class="price">120 zł <small>/ 60 min</small></div>
               <p>Rozszerzenie w szkole — trudniejszy program, zadania problemowe i utrzymanie wysokiego wyniku.</p>
-              <button class="btn btn-secondary btn-small price-cta" data-level="Szkoła średnia — rozszerzenie">Wybierz</button>
+              <a class="btn btn-secondary btn-small price-cta" href="https://wa.me/48517524484" data-wa-open data-level="Szkoła średnia — rozszerzenie" target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Zapytaj o termin</a>
             </article>
           </div>
         </div>
@@ -707,36 +747,40 @@
     <section class="section" id="opinie">
       <div class="container">
         <div class="section-head reveal">
-          <div><div class="eyebrow">Opinie</div><h2>Co mówią uczniowie i rodzice</h2></div>
+          <div><div class="eyebrow">Opinie</div><h2>Nie musisz wierzyć na słowo — przeczytaj, co piszą uczniowie</h2></div>
         </div>
-        <div class="testimonials">
-          <article class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Na początku byłem strasznie zestresowany na lekcjach matematyki w szkole. Z czasem nabierałem pewności siebie — z próbnego egzaminu na 40% napisałem finalnie 90%.”</blockquote><div class="quote-footer"><div class="quote-avatar">S</div><div><strong>Szymon</strong><span>klasa 8 · egzamin ósmoklasisty</span></div></div></article>
-          <article class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Kompletnie nic nie rozumiałam na lekcjach i miałam bardzo słabe oceny. Podczas współpracy odzyskałam pewność siebie — z ledwej dwójki wyszłam na czwórkę.”</blockquote><div class="quote-footer"><div class="quote-avatar">J</div><div><strong>Julka</strong><span>klasa 2 liceum · poziom podstawowy</span></div></div></article>
-          <article class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Dzięki współpracy udało mi się wykręcić 80% z matury rozszerzonej i dostać się na wymarzone studia — bez współpracy byłoby to niemożliwe.”</blockquote><div class="quote-footer"><div class="quote-avatar">P</div><div><strong>Patryk</strong><span>matura rozszerzona</span></div></div></article>
+        <div class="reviews">
+          <button type="button" class="review-shot reveal" data-proof="assets/opinie/opinia-adusia.jpg" aria-label="Powiększ opinię: Adusia"><img src="assets/opinie/opinia-adusia.jpg" alt="Screen wiadomości z opinią ucznia (Adusia)" width="1440" height="276" loading="lazy" /></button>
+          <button type="button" class="review-shot reveal" data-proof="assets/opinie/opinia-asia.jpg" aria-label="Powiększ opinię: Asia"><img src="assets/opinie/opinia-asia.jpg" alt="Screen wiadomości z opinią ucznia (Asia)" width="1456" height="151" loading="lazy" /></button>
+          <button type="button" class="review-shot reveal" data-proof="assets/opinie/opinia-maja.jpg" aria-label="Powiększ opinię: Maja"><img src="assets/opinie/opinia-maja.jpg" alt="Screen wiadomości z opinią ucznia (Maja)" width="1399" height="151" loading="lazy" /></button>
+          <button type="button" class="review-shot reveal" data-proof="assets/opinie/opinia-karol.jpg" aria-label="Powiększ opinię: Karol"><img src="assets/opinie/opinia-karol.jpg" alt="Screen wiadomości z opinią ucznia (Karol)" width="1447" height="135" loading="lazy" /></button>
+          <button type="button" class="review-shot reveal" data-proof="assets/opinie/opinia-szymon.jpg" aria-label="Powiększ opinię: Szymon"><img src="assets/opinie/opinia-szymon.jpg" alt="Screen wiadomości z opinią ucznia (Szymon)" width="1393" height="118" loading="lazy" /></button>
+          <button type="button" class="review-shot reveal" data-proof="assets/opinie/opinia-natalia.jpg" aria-label="Powiększ opinię: Natalia"><img src="assets/opinie/opinia-natalia.jpg" alt="Screen wiadomości z opinią ucznia (Natalia)" width="1428" height="118" loading="lazy" /></button>
+        </div>
+        <p class="reviews-hint">Kliknij screen, aby go powiększyć.</p>
+        <div class="reviews-cta reveal">
+          <div><strong>Chcesz takich efektów u siebie?</strong><p>Napisz na WhatsApp — pierwsza lekcja próbna jest za darmo.</p></div>
+          <a class="btn btn-whatsapp" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="rezerwacja">
-      <div class="container booking-shell reveal">
-        <div class="booking-head">
-          <div><div class="eyebrow">Rezerwacja lekcji</div><h2>Wybierz poziom i umów lekcję</h2><p><strong style="color:#b8f5d4;">Pierwsza lekcja próbna jest za darmo.</strong> Wybierz poziom, zobacz wolne terminy i zarezerwuj spotkanie — po rezerwacji dostaniesz e-mail z potwierdzeniem i linkiem do Google Meet.</p></div>
-          <div class="live">● kalendarz na żywo</div>
-        </div>
-        <div class="booking-level-picker">
-          <p>Co Cię interesuje?</p>
-          <div class="booking-level-options" role="tablist" aria-label="Wybór poziomu lekcji">
-            <button type="button" class="booking-level-btn" role="tab" data-level="Egzamin ósmoklasisty" data-cal-link="rozkmin-matme/korepetycje-egzamin-8klasisty" aria-selected="false"><strong>Egzamin ósmoklasisty</strong><span>100 zł · 60 min</span></button>
-            <button type="button" class="booking-level-btn active" role="tab" data-level="Matura podstawowa" data-cal-link="rozkmin-matme/korepetycje-matura-podstawowa" aria-selected="true"><strong>Matura podstawowa</strong><span>120 zł · 60 min</span></button>
-            <button type="button" class="booking-level-btn" role="tab" data-level="Matura rozszerzona" data-cal-link="rozkmin-matme/korepetycje-matura-rozszerzona" aria-selected="false"><strong>Matura rozszerzona</strong><span>150 zł · 60 min</span></button>
-            <button type="button" class="booking-level-btn" role="tab" data-level="Szkoła średnia — podstawa" data-cal-link="rozkmin-matme/korepetycje-szkoła-srednia-poziom-podstawowy" aria-selected="false"><strong>Szkoła średnia · podstawa</strong><span>110 zł · 60 min</span></button>
-            <button type="button" class="booking-level-btn" role="tab" data-level="Szkoła średnia — rozszerzenie" data-cal-link="rozkmin-matme/korepetycje-szkoła-srednia-poziom-rozszerzony" aria-selected="false"><strong>Szkoła średnia · rozszerzenie</strong><span>120 zł · 60 min</span></button>
+    <section class="section" id="kontakt">
+      <div class="container contact-shell reveal">
+        <div>
+          <div class="eyebrow">Kontakt</div>
+          <h2>Napisz na WhatsApp i umów darmową lekcję</h2>
+          <p class="lead">Wystarczy krótka wiadomość: poziom, cel i z czym masz problem. Odpisujemy, proponujemy termin i wysyłamy link do Google Meet.</p>
+          <div class="contact-actions">
+            <a class="btn btn-whatsapp" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
+            <a class="contact-number" href="https://wa.me/48517524484" target="_blank" rel="noopener"><span>WhatsApp</span>517 524 484</a>
           </div>
         </div>
-        <div class="booking-embed-wrap">
-          <div id="cal-embed"></div>
+        <div class="contact-steps">
+          <div class="contact-step"><div class="step-num">01</div><div><strong>Piszesz wiadomość</strong><p>Np. „Matura podstawowa, mam problem z funkcjami”.</p></div></div>
+          <div class="contact-step"><div class="step-num">02</div><div><strong>Ustalamy termin</strong><p>Dopasowujemy dzień i godzinę pierwszej, darmowej lekcji.</p></div></div>
+          <div class="contact-step"><div class="step-num">03</div><div><strong>Spotykamy się online</strong><p>Google Meet + interaktywna tablica — i działamy.</p></div></div>
         </div>
-        <p class="booking-note">Masz pytanie przed rezerwacją? Napisz na <a href="https://wa.me/48887739890" target="_blank" rel="noopener">WhatsApp</a> — 887 739 890.</p>
       </div>
     </section>
 
@@ -745,6 +789,7 @@
         <div class="section-head reveal" style="justify-content:center;text-align:center"><div><div class="eyebrow">FAQ</div><h2>Najczęstsze pytania</h2></div></div>
         <div class="faq">
           <details class="reveal" open><summary>Czy pierwsza lekcja jest płatna?</summary><p>Nie — pierwsza lekcja próbna jest całkowicie za darmo. To spokojny sposób, żeby uczeń i rodzic sprawdzili, czy taki sposób pracy im odpowiada, zanim zdecydują o dalszej współpracy.</p></details>
+          <details class="reveal"><summary>Jak umówić lekcję?</summary><p>Najprościej przez WhatsApp — kliknij zieloną ikonę w rogu strony albo napisz na numer <a href="https://wa.me/48517524484" target="_blank" rel="noopener" style="color:#ad9cff;font-weight:700">517 524 484</a>. Podaj poziom i cel, a razem ustalimy termin.</p></details>
           <details class="reveal"><summary>Czy pierwsza lekcja zobowiązuje do regularnej współpracy?</summary><p>Nie. Po lekcji próbnej sami decydujecie, czy chcecie kontynuować. Kolejne spotkania są już płatne według cennika.</p></details>
           <details class="reveal"><summary>Czego potrzebuję do lekcji online?</summary><p>Komputera lub laptopa, stabilnego internetu i mikrofonu. Pracujemy na Google Meet oraz interaktywnej tablicy — uczeń sam pisze i rozwiązuje zadania bezpośrednio na tablicy. Najwygodniej robi się to na tablecie graficznym podłączonym przez USB; pisanie myszką też jest możliwe, ale znacznie mniej komfortowe.</p></details>
           <details class="reveal"><summary>Czy dostanę materiały po zajęciach?</summary><p>Tak. Rozwiązania i notatki z tablicy mogą zostać udostępnione po lekcji, aby uczeń mógł wrócić do nich przed sprawdzianem lub egzaminem.</p></details>
@@ -757,8 +802,8 @@
     <section class="section" style="padding-top:20px">
       <div class="container cta-band reveal">
         <h2>Nie czekaj, aż zaległości zrobią się jeszcze większe.</h2>
-        <p>Umów darmową lekcję próbną — bez zobowiązań. Sprawdź, jak wygląda matematyka tłumaczona spokojnie, konkretnie i bez oceniania.</p>
-        <a class="btn" href="#rezerwacja">Umów darmową lekcję próbną</a>
+        <p>Napisz na WhatsApp i umów darmową lekcję próbną — bez zobowiązań. Sprawdź, jak wygląda matematyka tłumaczona spokojnie, konkretnie i bez oceniania.</p>
+        <a class="btn" href="https://wa.me/48517524484" data-wa-open target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true" style="color:#1fb855"><use href="#i-wa"/></svg>Napisz na WhatsApp</a>
       </div>
     </section>
   </main>
@@ -770,141 +815,49 @@
           <a class="brand" href="#top"><img src="logo.jpg" alt="Logo Rozkmin Matmę" /><span>rozkminmatme<small>korepetycje online</small></span></a>
           <p>Indywidualne korepetycje z matematyki online. Egzamin ósmoklasisty, liceum, technikum oraz matura podstawowa i rozszerzona.</p>
         </div>
-        <div class="footer-col"><h4>Na skróty</h4><a href="#jak-pracujemy">Jak pracujemy</a><a href="#cennik">Cennik</a><a href="#opinie">Opinie</a><a href="#rezerwacja">Rezerwacja</a></div>
-        <div class="footer-col"><h4>Kontakt</h4><a href="tel:+48887739890">887 739 890</a><a href="https://instagram.com/rozkminmatme" target="_blank" rel="noopener">Instagram @rozkminmatme</a><span style="display:block;margin-top:8px;color:#8f8aa4">Lekcje online — cała Polska</span></div>
+        <div class="footer-col"><h4>Na skróty</h4><a href="#jak-pracujemy">Jak pracujemy</a><a href="#cennik">Cennik</a><a href="#opinie">Opinie</a><a href="#kontakt">Kontakt</a></div>
+        <div class="footer-col"><h4>Kontakt</h4><a href="https://wa.me/48517524484" target="_blank" rel="noopener">WhatsApp: 517 524 484</a><a href="tel:+48887739890">Tel.: 887 739 890</a><a href="https://instagram.com/rozkminmatme" target="_blank" rel="noopener">Instagram @rozkminmatme</a><span style="display:block;margin-top:8px;color:#8f8aa4">Lekcje online — cała Polska</span></div>
         <div class="footer-col"><h4>Informacje prawne</h4><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></div>
       </div>
       <div class="copyright"><span>© <span id="year"></span> Rozkmin Matmę. Wszelkie prawa zastrzeżone.</span><span class="copyright-links"><a href="regulamin.html">Regulamin</a><a href="polityka-prywatnosci.html">Polityka prywatności</a></span></div>
     </div>
   </footer>
 
-  <script>
-    (function (C, A, L) {
-      let p = function (a, ar) { a.q.push(ar); };
-      let d = C.document;
-      C.Cal = C.Cal || function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () { p(api, arguments); };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === 'string') {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ['initNamespace', namespace]);
-          } else {
-            p(cal, ar);
-          }
-          return;
-        }
-        p(cal, ar);
-      };
-    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+  <div class="wa-widget" id="waWidget">
+    <div class="wa-teaser" id="waTeaser">Cześć! 👋 Napisz, z czym potrzebujesz pomocy</div>
+    <div class="wa-panel" id="waPanel" role="dialog" aria-modal="false" aria-labelledby="waPanelTitle">
+      <div class="wa-panel-head">
+        <img src="logo.jpg" alt="" width="44" height="44" />
+        <div><strong id="waPanelTitle">Rozkmin Matmę</strong><span>Korepetycje z matematyki · WhatsApp</span></div>
+      </div>
+      <div class="wa-panel-body">
+        <div class="wa-bubble">Cześć! 👋 Napisz, z czym potrzebujesz pomocy — ustalimy termin <strong>darmowej lekcji próbnej</strong>.<small>Rozkmin Matmę</small></div>
+        <p class="wa-topics-label">Czego dotyczy wiadomość?</p>
+        <div class="wa-topics" id="waTopics">
+          <button type="button" class="wa-topic" data-level="Egzamin ósmoklasisty" aria-pressed="false">Egzamin ósmoklasisty</button>
+          <button type="button" class="wa-topic" data-level="Matura podstawowa" aria-pressed="false">Matura podstawowa</button>
+          <button type="button" class="wa-topic" data-level="Matura rozszerzona" aria-pressed="false">Matura rozszerzona</button>
+          <button type="button" class="wa-topic" data-level="Szkoła średnia — podstawa" aria-pressed="false">Szkoła średnia · podstawa</button>
+          <button type="button" class="wa-topic" data-level="Szkoła średnia — rozszerzenie" aria-pressed="false">Szkoła średnia · rozszerzenie</button>
+        </div>
+      </div>
+      <div class="wa-panel-foot">
+        <a class="btn wa-start" id="waStart" href="https://wa.me/48517524484" target="_blank" rel="noopener"><svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>Rozpocznij czat</a>
+        <p class="wa-foot-note">Otworzy się WhatsApp · 517 524 484</p>
+      </div>
+    </div>
+    <button type="button" class="wa-fab" id="waFab" aria-label="Napisz na WhatsApp" aria-expanded="false" aria-controls="waPanel">
+      <svg class="wa-icon" aria-hidden="true"><use href="#i-wa"/></svg>
+      <span class="wa-close-icon" aria-hidden="true">✕</span>
+    </button>
+  </div>
 
-    Cal('init', { origin: 'https://app.cal.com' });
-    Cal('ui', {
-      theme: 'dark',
-      language: 'pl',
-      layout: 'month_view',
-      hideEventTypeDetails: false,
-      cssVarsPerTheme: {
-        dark: {
-          'cal-brand': '#7657ff',
-          'cal-brand-emphasis': '#8d69ff',
-          'cal-brand-text': '#f8f7ff',
-          'cal-brand-subtle': '#4d408d',
-          'cal-brand-accent': '#f8f7ff',
-          'cal-text': '#d9d7e6',
-          'cal-text-emphasis': '#f8f7ff',
-          'cal-text-subtle': '#b9b6cd',
-          'cal-text-muted': '#8f8ba5',
-          'cal-text-inverted': '#070710',
-          'cal-bg': '#0d0c18',
-          'cal-bg-emphasis': '#17152a',
-          'cal-bg-subtle': '#12101d',
-          'cal-bg-muted': '#0a0912',
-          'cal-bg-inverted': '#f8f7ff',
-          'cal-border': 'rgba(142, 120, 255, .22)',
-          'cal-border-emphasis': 'rgba(143, 120, 255, .5)',
-          'cal-border-subtle': 'rgba(255, 255, 255, .08)',
-          'cal-border-muted': 'rgba(255, 255, 255, .05)',
-          'cal-border-booker': 'rgba(137, 108, 255, .27)',
-          'cal-border-booker-width': '1px',
-          'radius': '0.85rem',
-          'spacing': '5px'
-        }
-      }
-    });
+  <dialog class="proof-dialog" id="proofDialog" aria-label="Oryginalny screen opinii">
+    <div class="proof-scroll"><img id="proofImg" src="" alt="Oryginalny screen wiadomości z opinią ucznia" /></div>
+    <p class="proof-hint">Przesuń w bok, aby przeczytać całość →</p>
+    <button type="button" class="btn btn-secondary btn-small proof-close" id="proofClose">Zamknij</button>
+  </dialog>
 
-    const CAL_ORIGIN = 'https://app.cal.com';
-    const calEmbedEl = document.getElementById('cal-embed');
-    const bookingLevelBtns = document.querySelectorAll('.booking-level-btn');
-    let calEmbedReady = false;
-
-    function resetCalEmbed() {
-      calEmbedEl.innerHTML = '';
-      calEmbedEl.classList.remove('cal-inline-container');
-      if (window.Cal?.inlineEl) window.Cal.inlineEl = undefined;
-      calEmbedReady = false;
-    }
-
-    function buildCalEmbedUrl(calLink) {
-      const url = new URL(`${calLink.replace(/^\//, '')}/embed`, `${CAL_ORIGIN}/`);
-      url.searchParams.set('embed', '');
-      url.searchParams.set('layout', 'month_view');
-      url.searchParams.set('__cal.reloadTs', Date.now().toString());
-      return url.toString();
-    }
-
-    function loadCalEmbed(calLink) {
-      const iframe = calEmbedEl.querySelector('iframe');
-
-      if (calEmbedReady && iframe) {
-        iframe.src = buildCalEmbedUrl(calLink);
-        return;
-      }
-
-      resetCalEmbed();
-      Cal('inline', {
-        elementOrSelector: '#cal-embed',
-        calLink,
-        config: { layout: 'month_view' }
-      });
-      calEmbedReady = true;
-    }
-
-    function selectBookingLevel(level, scrollToCalendar) {
-      let matched = false;
-      bookingLevelBtns.forEach(btn => {
-        const active = btn.dataset.level === level;
-        btn.classList.toggle('active', active);
-        btn.setAttribute('aria-selected', String(active));
-        if (active) {
-          matched = true;
-          loadCalEmbed(btn.dataset.calLink);
-        }
-      });
-      if (scrollToCalendar) {
-        calEmbedEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-      return matched;
-    }
-
-    bookingLevelBtns.forEach(btn => btn.addEventListener('click', () => {
-      selectBookingLevel(btn.dataset.level, false);
-    }));
-
-    selectBookingLevel('Matura podstawowa', false);
-
-    window.selectBookingLevel = selectBookingLevel;
-  </script>
   <script>
     const navWrap = document.querySelector('.nav-wrap');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -932,11 +885,63 @@
     }, { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    document.querySelectorAll('.price-cta').forEach(btn => btn.addEventListener('click', () => {
-      const level = btn.dataset.level;
-      document.getElementById('rezerwacja').scrollIntoView({ behavior: 'smooth' });
-      if (level && window.selectBookingLevel) window.selectBookingLevel(level, true);
+    const WA_NUMBER = '48517524484';
+    const waWidget = document.getElementById('waWidget');
+    const waFab = document.getElementById('waFab');
+    const waStart = document.getElementById('waStart');
+    const waTopics = document.querySelectorAll('.wa-topic');
+    let waLevel = null;
+
+    function waMessage() {
+      return waLevel
+        ? `Dzień dobry! Piszę w sprawie korepetycji z matematyki — poziom: ${waLevel}. Chętnie umówię darmową lekcję próbną.`
+        : 'Dzień dobry! Piszę w sprawie korepetycji z matematyki. Chętnie umówię darmową lekcję próbną.';
+    }
+
+    function setWaLevel(level) {
+      waLevel = level || null;
+      waTopics.forEach(t => t.setAttribute('aria-pressed', String(t.dataset.level === waLevel)));
+      waStart.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMessage())}`;
+    }
+
+    function setWaOpen(open) {
+      waWidget.classList.toggle('open', open);
+      waWidget.classList.remove('teasing');
+      waFab.setAttribute('aria-expanded', String(open));
+      waFab.setAttribute('aria-label', open ? 'Zamknij okno WhatsApp' : 'Napisz na WhatsApp');
+      if (open) waStart.focus({ preventScroll: true });
+    }
+
+    waFab.addEventListener('click', () => setWaOpen(!waWidget.classList.contains('open')));
+    document.getElementById('waTeaser').addEventListener('click', () => setWaOpen(true));
+    waTopics.forEach(t => t.addEventListener('click', () => setWaLevel(t.dataset.level === waLevel ? null : t.dataset.level)));
+    waStart.addEventListener('click', () => setWaOpen(false));
+
+    document.querySelectorAll('[data-wa-open]').forEach(el => el.addEventListener('click', e => {
+      e.preventDefault();
+      setWaLevel(el.dataset.level || waLevel);
+      setWaOpen(true);
     }));
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && waWidget.classList.contains('open')) { setWaOpen(false); waFab.focus(); }
+    });
+    document.addEventListener('click', e => {
+      if (waWidget.classList.contains('open') && !waWidget.contains(e.target) && !e.target.closest('[data-wa-open]')) setWaOpen(false);
+    });
+
+    setWaLevel(null);
+    setTimeout(() => { if (!waWidget.classList.contains('open')) waWidget.classList.add('teasing'); }, 4000);
+    setTimeout(() => waWidget.classList.remove('teasing'), 14000);
+
+    const proofDialog = document.getElementById('proofDialog');
+    const proofImg = document.getElementById('proofImg');
+    document.querySelectorAll('.review-shot').forEach(btn => btn.addEventListener('click', () => {
+      proofImg.src = btn.dataset.proof;
+      if (proofDialog.showModal) proofDialog.showModal(); else window.open(btn.dataset.proof, '_blank');
+    }));
+    document.getElementById('proofClose').addEventListener('click', () => proofDialog.close());
+    proofDialog.addEventListener('click', e => { if (e.target === proofDialog) proofDialog.close(); });
 
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
